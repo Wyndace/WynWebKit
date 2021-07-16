@@ -1,6 +1,6 @@
 "use strict"
 
-const { src, dest, parallel, series, watch } = require('gulp');
+const { src, dest, series, parallel, watch } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const notify = require('gulp-notify');
 const rename = require('gulp-rename');
@@ -12,6 +12,7 @@ const svgSprite = require('gulp-svg-sprite');
 const ttf2woff = require('gulp-ttf2woff');
 const ttf2woff2 = require('gulp-ttf2woff2');
 const fs = require('fs');
+const del = require('del')
 
 const stylesPreBuilding = () => {
 	return src('./src/scss/**/*.scss')
@@ -46,7 +47,7 @@ const videoPreBuilding = () => {
 
 const resourcesPreBuilding = () => {
 	return src('./src/resources/**')
-		.pipe(dest('./app/resources/'));
+		.pipe(dest('./app/resources'));
 }
 
 const svgToSprite = () => {
@@ -58,7 +59,7 @@ const svgToSprite = () => {
 				}
 			}
 		})))
-		.pipe(dest('/app/img/'));
+		.pipe(dest('/app/img'));
 };
 
 const fontsPreBuilding = () => {
@@ -99,6 +100,10 @@ const fontsStyle = (done) => {
 	done();
 }
 
+const cleaner = () => {
+	return del(['./app/*'])
+}
+
 const globalWatching = () => {
 	browserSync.init({
 		server: {
@@ -130,6 +135,7 @@ exports.svgToSprite = svgToSprite;
 exports.videoPreBuilding = videoPreBuilding;
 exports.fontsPreBuilding = fontsPreBuilding;
 exports.fontsStyle = fontsStyle;
+exports.cleaner = cleaner;
 exports.globalWatching = globalWatching;
 
-exports.default = series(htmlBuilding, fontsPreBuilding, fontsStyle, stylesPreBuilding, imgPreBuilding, svgToSprite, videoPreBuilding, globalWatching, resourcesPreBuilding);
+exports.default = series(cleaner, parallel(htmlBuilding, , fontsStyle, imgPreBuilding, svgToSprite, videoPreBuilding, resourcesPreBuilding), fontsPreBuilding, stylesPreBuilding, globalWatching);

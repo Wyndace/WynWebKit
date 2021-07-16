@@ -9,8 +9,11 @@ const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync');
 const fileinclude = require('gulp-file-include');
 const svgSprite = require('gulp-svg-sprite');
+const ttf2woff = require('gulp-ttf2woff');
+const ttf2woff2 = require('gulp-ttf2woff2');
+const fs = require('fs');
 
-const stylesBuilding = () => {
+const stylesPreBuilding = () => {
 	return src('./src/scss/**/*.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass({ outputStyle: 'compressed', }).on('error', notify.onError()))
@@ -31,17 +34,17 @@ const htmlBuilding = () => {
 		.pipe(browserSync.stream());
 };
 
-const imgToApp = () => {
+const imgPreBuilding = () => {
 	return src(['.src/img/**.png', './src/img/**.jpeg', './src/img/**.jpg'])
 		.pipe(dest('./app/img'));
 };
 
-const videoToApp = () => {
+const videoPreBuilding = () => {
 	return src(['./src/video/**.mp4', './src/video/**.mpeg', './src/video/**.webm', './src/video/**.mpg', './src/video/**.avi', './src/video/**.mov'])
 		.pipe(dest('.app/video'));
 };
 
-const resourcesToApp = () => {
+const resourcesPreBuilding = () => {
 	return src('./src/resources/**')
 		.pipe(dest('./app/resources/'));
 }
@@ -58,32 +61,75 @@ const svgToSprite = () => {
 		.pipe(dest('/app/img/'));
 };
 
+const fontsPreBuilding = () => {
+	src('./src/fonts/**.ttf')
+		.pipe(ttf2woff())
+		.pipe(dest('./app/fonts'));
+	return src('./src/fonts/**.ttf')
+		.pipe(ttf2woff2())
+		.pipe(dest('./app/fonts'));
+}
+
+let initAttr = () => {
+	let srcFonts = './src/scss/_fonts.scss';
+	let appFonts = './app/fonts/';
+	return [srcFonts, appFonts]
+}
+
+const cb = () => {}
+
+const fontsStyle = (done) => {
+	let pathArr = initAttr();
+	let file_content = fs.readFileSync(pathArr[0]);
+	fs.writeFile(pathArr[0], '', cb);
+	fs.readdir(pathArr[1], function (err, items) {
+		if (items) {
+			let c_fontname;
+			for (var i = 0; i < items.length; i++) {
+				let fontname = items[i].split('.');
+				fontname = fontname[0];
+				if (c_fontname != fontname) {
+					fs.appendFile(pathArr[0], `@include font-face("${fontname}", "${fontname}", 400);\r\n`, cb);
+				}
+				c_fontname = fontname;
+			}
+		}
+	})
+
+	done();
+}
+
 const globalWatching = () => {
 	browserSync.init({
 		server: {
 			baseDir: './app'
 		}
 	});
-	watch('./src/scss/**/*.scss', stylesBuilding);
+
+	watch('./src/scss/**/*.scss', stylesPreBuilding);
 	watch('./src/index.html', htmlBuilding);
-	watch('./src/img/**.jpg', imgToApp);
-	watch('./src/img/**.jpeg', imgToApp);
-	watch('./src/img/**.png', imgToApp);
+	watch('./src/img/**.jpg', imgPreBuilding);
+	watch('./src/img/**.jpeg', imgPreBuilding);
+	watch('./src/img/**.png', imgPreBuilding);
 	watch('./src/img/**.svg', svgToSprite);
-	watch('./src/video/**.mp4', videoToApp);
-	watch('./src/video/**.mpeg', videoToApp);
-	watch('./src/video/**.webm', videoToApp);
-	watch('./src/video/**.mpg', videoToApp);
-	watch('./src/video/**.avi', videoToApp);
-	watch('./src/video/**.mov', videoToApp);
-	watch('./src/resources/**', resourcesToApp);
+	watch('./src/video/**.mp4', videoPreBuilding);
+	watch('./src/video/**.mpeg', videoPreBuilding);
+	watch('./src/video/**.webm', videoPreBuilding);
+	watch('./src/video/**.mpg', videoPreBuilding);
+	watch('./src/video/**.avi', videoPreBuilding);
+	watch('./src/video/**.mov', videoPreBuilding);
+	watch('./src/resources/**', resourcesPreBuilding);
+	watch('./src/fonts/**.ttf', fontsPreBuilding);
+	watch('./src/fonts/**.ttf', fontsStyle);
 };
 
-exports.stylesBuilding = stylesBuilding;
+exports.stylesPreBuilding = stylesPreBuilding;
 exports.htmlBuilding = htmlBuilding;
-exports.imgToApp = imgToApp;
+exports.imgPreBuilding = imgPreBuilding;
 exports.svgToSprite = svgToSprite;
-exports.videoToApp = videoToApp;
+exports.videoPreBuilding = videoPreBuilding;
+exports.fontsPreBuilding = fontsPreBuilding;
+exports.fontsStyle = fontsStyle;
 exports.globalWatching = globalWatching;
 
-exports.default = series(htmlBuilding, stylesBuilding, imgToApp, svgSprite, videoToApp, globalWatching);
+exports.default = series(htmlBuilding, fontsPreBuilding, fontsStyle, stylesPreBuilding, imgPreBuilding, svgToSprite, videoPreBuilding, globalWatching, resourcesPreBuilding);

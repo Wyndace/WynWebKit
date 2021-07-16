@@ -1,0 +1,40 @@
+{
+  "name": "shopio",
+  "version": "2.0.0",
+  "description": "Website template by Wyndace",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wyndace/Shopio.git"
+  },
+  "keywords": [
+    "template",
+    "wynyard",
+    "wyndace",
+    "web",
+    "js",
+    "html",
+    "css",
+    "shopio"
+  ],
+  "author": "Wyndace (Vasilev Alexander)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wyndace/Shopio/issues"
+  },
+  "homepage": "https://wyndace.github.io/Shopio",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.35.2"
+  }
+}

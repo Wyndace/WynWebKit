@@ -100,6 +100,11 @@ const fontsStyle = (done) => {
 	done();
 }
 
+const scriptsPreBuilding = () => {
+		return src('./src/js/**')
+		.pipe(dest('./app/js'));
+}
+
 const cleaner = () => {
 	return del(['./app/*'])
 }
@@ -126,16 +131,7 @@ const globalWatching = () => {
 	watch('./src/resources/**', resourcesPreBuilding);
 	watch('./src/fonts/**.ttf', fontsPreBuilding);
 	watch('./src/fonts/**.ttf', fontsStyle);
+	watch('./src/js/**', scriptsPreBuilding);
 };
 
-exports.stylesPreBuilding = stylesPreBuilding;
-exports.htmlBuilding = htmlBuilding;
-exports.imgPreBuilding = imgPreBuilding;
-exports.svgToSprite = svgToSprite;
-exports.videoPreBuilding = videoPreBuilding;
-exports.fontsPreBuilding = fontsPreBuilding;
-exports.fontsStyle = fontsStyle;
-exports.cleaner = cleaner;
-exports.globalWatching = globalWatching;
-
-exports.default = series(cleaner, parallel(htmlBuilding, , fontsStyle, imgPreBuilding, svgToSprite, videoPreBuilding, resourcesPreBuilding), fontsPreBuilding, stylesPreBuilding, globalWatching);
+exports.default = series(cleaner, parallel(htmlBuilding, fontsStyle, imgPreBuilding, svgToSprite, videoPreBuilding, resourcesPreBuilding, scriptsPreBuilding), fontsPreBuilding, stylesPreBuilding, globalWatching);

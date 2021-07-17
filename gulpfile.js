@@ -11,6 +11,9 @@ const fileinclude = require('gulp-file-include');
 const svgSprite = require('gulp-svg-sprite');
 const ttf2woff2 = require('gulp-ttf2woff2');
 const tinypng = require('gulp-tinypng-compress');
+const rev = require('gulp-rev');
+const revRewrite = require('gulp-rev-rewrite');
+const revDel = require('gulp-rev-delete-original');
 const fs = require('fs');
 const del = require('del')
 
@@ -35,7 +38,7 @@ const stylesBuilding = () => {
 };
 
 const htmlPreBuilding = () => {
-	return src('./src/index.html')
+	return src('./src/*.html')
 		.pipe(fileinclude({
 			prefix: '@',
 			basepath: '@file'
@@ -45,7 +48,7 @@ const htmlPreBuilding = () => {
 };
 
 const htmlBuilding = () => {
-	return src('./src/index.html')
+	return src('./src/*.html')
 		.pipe(fileinclude({
 			prefix: '@',
 			basepath: '@file'
@@ -55,13 +58,13 @@ const htmlBuilding = () => {
 
 
 const imgPreBuilding = () => {
-	return src(['.src/img/**.png', './src/img/**.jpeg', './src/img/**.jpg'])
+	return src(['.src/img/**.{png,jpeg,jpg,svg}'])
 		.pipe(dest('./app/img'));
 };
 
 const imgBuilding = () => {
 	
-	return src(['.src/img/**.png', './src/img/**.jpeg', './src/img/**.jpg'])
+	return src(['.src/img/{png,jpeg,jpg,svg}'])
 		.pipe(tinypng({
 		key: `${authKeys.tinypng}`,
 		}))
@@ -69,12 +72,12 @@ const imgBuilding = () => {
 }
 
 const videoPreBuilding = () => {
-	return src(['./src/video/**.mp4', './src/video/**.mpeg', './src/video/**.webm', './src/video/**.mpg', './src/video/**.avi', './src/video/**.mov'])
+	return src(['./src/video/**.{mp4,mpeg,webm,mpg,avi,mov}'])
 		.pipe(dest('.app/video'));
 };
 
 const videoBuilding = () => {
-	return src(['./src/video/**.mp4', './src/video/**.mpeg', './src/video/**.webm', './src/video/**.mpg', './src/video/**.avi', './src/video/**.mov'])
+	return src(['./src/video/**.{mp4,mpeg,webm,mpg,avi,mov}'])
 		.pipe(dest('.build/video'));
 };
 
@@ -98,7 +101,7 @@ const svgToSpritePreBuilding = () => {
 				}
 			}
 		})))
-		.pipe(dest('/app/img'));
+		.pipe(dest('/app/img/svg'));
 };
 const svgToSpriteBuilding = () => {
 	return src('.src/img/**.svg')
@@ -109,7 +112,7 @@ const svgToSpriteBuilding = () => {
 				}
 			}
 		})))
-		.pipe(dest('/build/img'));
+		.pipe(dest('/build/img/svg'));
 };
 
 const fontsPreBuilding = () => {
@@ -220,6 +223,54 @@ const cleaner = () => {
 	return del(['./app/*'])
 }
 
+const cachePreBuild = () => {
+  return src('app/**/*.{css,js,svg,png,jpg,jpeg,woff2}', {
+    base: 'app'})
+    .pipe(rev())
+    .pipe(revDel())
+		.pipe(dest('app'))
+    .pipe(rev.manifest('rev.json'))
+    .pipe(dest('app'));
+};
+
+const rewritePreBuild = () => {
+  const manifest = readFileSync('app/rev.json');
+	src('app/css/*.css')
+		.pipe(revRewrite({
+      manifest
+    }))
+		.pipe(dest('app/css'));
+  return src('app/**/*.html')
+    .pipe(revRewrite({
+      manifest
+    }))
+    .pipe(dest('app'));
+}
+
+const cacheBuild = () => {
+  return src('build/**/*.{css,js,svg,png,jpg,jpeg,woff2}', {
+    base: 'build'})
+    .pipe(rev())
+    .pipe(revDel())
+		.pipe(dest('build'))
+    .pipe(rev.manifest('rev.json'))
+    .pipe(dest('build'));
+};
+
+const rewriteBuild = () => {
+  const manifest = readFileSync('build/rev.json');
+	src('build/css/*.css')
+		.pipe(revRewrite({
+      manifest
+    }))
+		.pipe(dest('build/css'));
+  return src('build/**/*.html')
+    .pipe(revRewrite({
+      manifest
+    }))
+    .pipe(dest('build'));
+}
+
 const buildCleaner = () => {
 	return del(['./build/*'])
 }
@@ -232,17 +283,9 @@ const globalWatching = () => {
 	});
 
 	watch('./src/scss/**/*.scss', stylesPreBuilding);
-	watch('./src/index.html', htmlPreBuilding);
-	watch('./src/img/**.jpg', imgPreBuilding);
-	watch('./src/img/**.jpeg', imgPreBuilding);
-	watch('./src/img/**.png', imgPreBuilding);
-	watch('./src/img/**.svg', svgToSpritePreBuilding);
-	watch('./src/video/**.mp4', videoPreBuilding);
-	watch('./src/video/**.mpeg', videoPreBuilding);
-	watch('./src/video/**.webm', videoPreBuilding);
-	watch('./src/video/**.mpg', videoPreBuilding);
-	watch('./src/video/**.avi', videoPreBuilding);
-	watch('./src/video/**.mov', videoPreBuilding);
+	watch('./src/*.html', htmlPreBuilding);
+	watch('./src/img/**.{jpg,jpeg,png,svg}', imgPreBuilding);
+	watch('./src/video/**.{mp4,mpeg,webm,mpg,avi,mov}', videoPreBuilding);
 	watch('./src/resources/**', resourcesPreBuilding);
 	watch('./src/fonts/**.ttf', fontsPreBuilding);
 	watch('./src/fonts/**.ttf', fontsStyle);
@@ -252,3 +295,5 @@ const globalWatching = () => {
 exports.default = series(cleaner, parallel(htmlPreBuilding, fontsPreBuilding, imgPreBuilding, svgToSpritePreBuilding, videoPreBuilding, resourcesPreBuilding, scriptsPreBuilding),fontsStyle, stylesPreBuilding, globalWatching);
 
 exports.build = series(buildCleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), fontsStyleBuilding, stylesBuilding);
+
+exports.cache = series(cache, rewrite);

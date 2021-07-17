@@ -294,6 +294,6 @@ const globalWatching = () => {
 
 exports.default = series(cleaner, parallel(htmlPreBuilding, fontsPreBuilding, imgPreBuilding, svgToSpritePreBuilding, videoPreBuilding, resourcesPreBuilding, scriptsPreBuilding),fontsStyle, stylesPreBuilding, globalWatching);
 
-exports.build = series(buildCleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), fontsStyleBuilding, stylesBuilding);
+exports.build = series(buildCleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), fontsStyleBuilding, stylesBuilding, cacheBuild, rewriteBuild);
 
-exports.cache = series(cache, rewrite);
+exports.cache = series(cachePreBuild, rewritePreBuild);

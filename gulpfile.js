@@ -9,7 +9,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync');
 const fileinclude = require('gulp-file-include');
 const svgSprite = require('gulp-svg-sprite');
-const ttf2woff = require('gulp-ttf2woff');
 const ttf2woff2 = require('gulp-ttf2woff2');
 const tinypng = require('gulp-tinypng-compress');
 const fs = require('fs');
@@ -114,18 +113,12 @@ const svgToSpriteBuilding = () => {
 };
 
 const fontsPreBuilding = () => {
-	src('./src/fonts/**.ttf')
-		.pipe(ttf2woff())
-		.pipe(dest('./app/fonts'));
 	return src('./src/fonts/**.ttf')
 		.pipe(ttf2woff2())
 		.pipe(dest('./app/fonts'));
 }
 
 const fontsBuilding = () => {
-	src('./src/fonts/**.ttf')
-		.pipe(ttf2woff())
-		.pipe(dest('./build/fonts'));
 	return src('./src/fonts/**.ttf')
 		.pipe(ttf2woff2())
 		.pipe(dest('./build/fonts'));
@@ -138,22 +131,53 @@ let initAttr = () => {
 	return [srcFonts, appFonts, buildFonts]
 }
 
-const cb = () => {}
+const weightCheker = (fontname) => {
+	let weight = 400;
+	switch (true) {
+		case /Thin/.test(fontname):
+			weight = 100;
+			break;
+		case /ExtraLight/.test(fontname):
+			weight = 200;
+			break;
+		case /Light/.test(fontname):
+			weight = 300;
+			break;
+		case /Regular/.test(fontname):
+			weight = 400;
+			break;
+		case /Medium/.test(fontname):
+			weight = 500;
+			break;
+		case /SemiBold/.test(fontname):
+			weight = 600;
+			break;
+		case /Bold/.test(fontname):
+			weight = 700;
+			break;
+		case /ExtraBold/.test(fontname):
+			weight = 800;
+			break;
+		case /Black/.test(fontname):
+			weight = 900;
+			break;
+	}
+	return weight;
+}
 
 const fontsStyle = (done) => {
 	let pathArr = initAttr();
 	let file_content = fs.readFileSync(pathArr[0]);
-	fs.writeFile(pathArr[0], '', cb);
+	fs.writeFile(pathArr[0], '',() => {});
 	fs.readdir(pathArr[1], function (err, items) {
 		if (items) {
 			let c_fontname;
 			for (var i = 0; i < items.length; i++) {
 				let fontname = items[i].split('.');
-				fontname = fontname[0];
-				if (c_fontname != fontname) {
-					fs.appendFile(pathArr[0], `@include font-face("${fontname}", "${fontname}", 400);\r\n`, cb);
+				if (c_fontname != fontname[0]) {
+					fs.appendFile(pathArr[0], `@include font-face("${fontname[0].split('-')[0]}", "${fontname[0]}", ${weightCheker(fontname)});\r\n`, () => {});
 				}
-				c_fontname = fontname;
+				c_fontname = fontname[0];
 			}
 		}
 	})
@@ -164,7 +188,7 @@ const fontsStyle = (done) => {
 const fontsStyleBuilding = (done) => {
 	let pathArr = initAttr();
 	let file_content = fs.readFileSync(pathArr[0]);
-	fs.writeFile(pathArr[0], '', cb);
+	fs.writeFile(pathArr[0], '', () => {});
 	fs.readdir(pathArr[2], function (err, items) {
 		if (items) {
 			let c_fontname;
@@ -172,7 +196,7 @@ const fontsStyleBuilding = (done) => {
 				let fontname = items[i].split('.');
 				fontname = fontname[0];
 				if (c_fontname != fontname) {
-					fs.appendFile(pathArr[0], `@include font-face("${fontname}", "${fontname}", 400);\r\n`, cb);
+						fs.appendFile(pathArr[0], `@include font-face("${fontname[0].split('-')[0]}", "${fontname[0]}", ${weightCheker(fontname)});\r\n`, () => {});
 				}
 				c_fontname = fontname;
 			}
@@ -225,6 +249,6 @@ const globalWatching = () => {
 	watch('./src/js/**', scriptsPreBuilding);
 };
 
-exports.default = series(cleaner, parallel(htmlPreBuilding, fontsStyle, imgPreBuilding, svgToSpritePreBuilding, videoPreBuilding, resourcesPreBuilding, scriptsPreBuilding), fontsPreBuilding, stylesPreBuilding, globalWatching);
+exports.default = series(cleaner, parallel(htmlPreBuilding, fontsPreBuilding, imgPreBuilding, svgToSpritePreBuilding, videoPreBuilding, resourcesPreBuilding, scriptsPreBuilding),fontsStyle, stylesPreBuilding, globalWatching);
 
-exports.build = series(buildCleaner, parallel(htmlBuilding, fontsStyleBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), fontsBuilding, stylesBuilding);
+exports.build = series(buildCleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), fontsStyleBuilding, stylesBuilding);

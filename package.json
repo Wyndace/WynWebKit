@@ -46,6 +46,11 @@
     "gulp-tinypng-compress": "^1.2.5",
     "gulp-ttf2woff": "^1.1.1",
     "gulp-ttf2woff2": "^4.0.1",
-    "sass": "^1.35.2"
+    "node-w3c-validator": "^2.0.1",
+    "sass": "^1.35.2",
+    "stylelint": "^13.13.1",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.19.0"
   }
 }

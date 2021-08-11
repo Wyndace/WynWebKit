@@ -24,6 +24,8 @@ const gulpIf = require('gulp-if');
 
 let authKeys = JSON.parse(fs.readFileSync('./auth.json', 'utf-8'));
 let isBuilding = false;
+let buildDir = require('path').basename(__dirname)
+
 
 const building = (done) => {
 	isBuilding = true;
@@ -37,7 +39,7 @@ const stylesBuilding = () => {
 		.pipe(rename({ suffix: '.min', }))
 		.pipe(autoprefixer({ cascade: false, }))
 		.pipe(gulpIf(!isBuilding, sourcemaps.write('.')))
-		.pipe(gulpIf(!isBuilding, dest('./app/css'), dest('./build/css')))
+		.pipe(gulpIf(!isBuilding, dest('./app/css'), dest(`./${buildDir}/css`)))
 		.pipe(gulpIf(!isBuilding, browserSync.stream()));
 };
 
@@ -47,29 +49,29 @@ const htmlBuilding = () => {
 			prefix: '@',
 			basepath: '@file'
 		}))
-		.pipe(gulpIf(!isBuilding, dest('./app'), dest('./build')))
+		.pipe(gulpIf(!isBuilding, dest('./app'), dest(`./${buildDir}`)))
 		.pipe(gulpIf(!isBuilding, browserSync.stream()));
 };
 
 const imgBuilding = () => {
-	return src(['./src/img/**.{png,jpeg,jpg,svg}'])
+	return src(['./src/img/**/*{png,jpeg,jpg,svg}'])
 		.pipe(gulpIf(isBuilding, tinypng({
-			key: `${authKeys.tinypng}`,
+			key: '${authKeys.tinypng}',
 		})))
-		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest('./build/img')));
+		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest(`./${buildDir}/img`)));
 };
 
 const videoBuilding = () => {
-	return src(['./src/video/**.{mp4,mpeg,webm,mpg,avi,mov}'])
-		.pipe(gulpIf(!isBuilding, dest('./app/video'), dest('./build/video')));
+	return src(['./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}'])
+		.pipe(gulpIf(!isBuilding, dest('./app/video'), dest(`./${buildDir}/video`)));
 };
 const resourcesBuilding = () => {
 	return src('./src/resources/**')
-		.pipe(gulpIf(!isBuilding, dest('./app/resources'), dest('./build/resources')));
+		.pipe(gulpIf(!isBuilding, dest('./app/resources'), dest(`./${buildDir}/resources`)));
 };
 
 const svgToSpriteBuilding = () => {
-	return src('./src/img/svg/**.svg')
+	return src('./src/img/svg/**/*svg')
 		.pipe(svgSprite({
 			mode: {
 				stack: {
@@ -77,11 +79,11 @@ const svgToSpriteBuilding = () => {
 				}
 			}
 		}))
-		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest('./build/img')));
+		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest(`./${buildDir}/img`)));
 };
 
 const iconfontBuilding = () => {
-	return src(['./src/img/fonts/**.svg'])
+	return src(['./src/img/fonts/**/*svg'])
 		.pipe(iconfontCSS({
 			fontName: 'test_font',
 			targetPath: '../../src/scss/_iconfont.scss',
@@ -94,19 +96,19 @@ const iconfontBuilding = () => {
 			normalize: true,
       fontHeight: 1001
 		}))
-		.pipe(gulpIf(!isBuilding, dest('./app/fonts'), dest('./build/fonts')))
+		.pipe(gulpIf(!isBuilding, dest('./app/fonts'), dest(`./${buildDir}/fonts`)))
 }
 
 const fontsBuilding = () => {
-	return src('./src/fonts/**.ttf')
+	return src('./src/fonts/**/*ttf')
 		.pipe(ttf2woff2())
-		.pipe(gulpIf(!isBuilding, dest('./app/fonts'), dest('./build/fonts')));
+		.pipe(gulpIf(!isBuilding, dest('./app/fonts'), dest(`./${buildDir}/fonts`)));
 }
 
 let initAttr = () => {
 	let srcFonts = './src/scss/_fonts.scss';
 	let appFonts = './app/fonts/';
-	let buildFonts = './build/fonts/';
+	let buildFonts = `./${buildDir}/fonts/`;
 	return [srcFonts, appFonts, buildFonts]
 }
 
@@ -166,11 +168,11 @@ const fontsStyleBuilding = (done) => {
 
 
 const scriptsBuilding = () => {
-	src('./src/js/vendor/**.js')
+	src('./src/js/vendor/**/*js')
 	.pipe(concat('vendor.js'))
 	.pipe(gulpIf(isBuilding, uglify().on("error", notify.onError())))
 	.pipe(gulpIf(!isBuilding, sourcemaps.init()))
-	.pipe(gulpIf(!isBuilding, dest('./app/js'), dest('./build/js')))
+	.pipe(gulpIf(!isBuilding, dest('./app/js'), dest(`./${buildDir}/js`)))
 return src(
 	['./src/js/global.js', './src/js/main.js'])
 	.pipe(fileinclude({
@@ -180,12 +182,12 @@ return src(
 	.pipe(gulpIf(!isBuilding, sourcemaps.init()))
 	.pipe(gulpIf(isBuilding, uglify().on("error", notify.onError())))
 	.pipe(gulpIf(!isBuilding, sourcemaps.write('.')))
-	.pipe(gulpIf(!isBuilding, dest('./app/js'), dest('./build/js')))
+	.pipe(gulpIf(!isBuilding, dest('./app/js'), dest(`./${buildDir}/js`)))
 	.pipe(browserSync.stream());
 }
 
 const cleaner = () => {
-	return gulpIf(!isBuilding, del(['./app/*']), del(['./build/*']));
+	return gulpIf(!isBuilding, del(['./app/*']), del([`./${buildDir}/*`]));
 }
 
 const cachePreBuild = () => {
@@ -213,27 +215,27 @@ const rewritePreBuild = () => {
 }
 
 const cacheBuild = () => {
-  return src('build/**/*.{css,js,svg,png,jpg,jpeg,woff2,mp4,mpeg,webm,mpg,avi,mov}', {
-    base: 'build'})
+  return src(`${buildDir}/**/*.{css,js,svg,png,jpg,jpeg,woff2,mp4,mpeg,webm,mpg,avi,mov}`, {
+    base: buildDir})
     .pipe(rev())
     .pipe(revDel())
-		.pipe(dest('./build'))
+		.pipe(dest(`./${buildDir}`))
     .pipe(rev.manifest('rev.json'))
-    .pipe(dest('./build'));
+    .pipe(dest(`./${buildDir}`));
 };
 
 const rewriteBuild = () => {
-  const manifest = fs.readFileSync('./build/rev.json');
-	src('./build/css/*.css')
+  const manifest = fs.readFileSync(`./${buildDir}/rev.json`);
+	src(`./${buildDir}/css/*.css`)
 		.pipe(revRewrite({
       manifest
     }))
-		.pipe(dest('build/css'));
-  return src('build/**/*.html')
+		.pipe(dest(`${buildDir}/css`));
+  return src(`${buildDir}/**/*.html`)
     .pipe(revRewrite({
       manifest
     }))
-    .pipe(dest('./build'));
+    .pipe(dest(`./${buildDir}`));
 }
 
 const globalWatching = () => {
@@ -246,12 +248,12 @@ const globalWatching = () => {
 	watch('./src/scss/**/*.scss', stylesBuilding);
 	watch('./src/*.html', htmlBuilding);
 	watch('./src/html/*.html', htmlBuilding);
-	watch('./src/img/**.{jpg,jpeg,png,svg}', imgBuilding);
-	watch('./src/video/**.{mp4,mpeg,webm,mpg,avi,mov}', videoBuilding);
-	watch('./src/img/fonts/**.svg', iconfontBuilding);
+	watch('./src/img/**/*{jpg,jpeg,png,svg}', imgBuilding);
+	watch('./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}', videoBuilding);
+	watch('./src/img/fonts/**/*svg', iconfontBuilding);
 	watch('./src/resources/**', resourcesBuilding);
-	watch('./src/fonts/**.ttf', fontsBuilding);
-	watch('./src/fonts/**.ttf', fontsStyleBuilding);
+	watch('./src/fonts/**/*ttf', fontsBuilding);
+	watch('./src/fonts/**/*ttf', fontsStyleBuilding);
 	watch('./src/js/**', scriptsBuilding);
 };
 

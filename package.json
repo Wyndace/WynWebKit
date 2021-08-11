@@ -1,14 +1,14 @@
 {
-  "name": "shopio",
-  "version": "2.0.0",
-  "description": "Website template by Wyndace",
+  "name": "WynGulp",
+  "version": "1.0.0",
+  "description": "My Build of Gulp for weblayout",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wyndace/Shopio.git"
+    "url": "git+https://github.com/Wyndace/WynGulp.git"
   },
   "keywords": [
     "template",
@@ -18,14 +18,15 @@
     "js",
     "html",
     "css",
-    "shopio"
+    "wyngulp",
+    "weblayouts"
   ],
   "author": "Wyndace (Vasilev Alexander)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Wyndace/Shopio/issues"
+    "url": "https://github.com/Wyndace/WynGulp/issues"
   },
-  "homepage": "https://wyndace.github.io/Shopio",
+  "homepage": "https://github.com/Wyndace",
   "devDependencies": {
     "browser-sync": "^2.27.4",
     "del": "^6.0.0",
@@ -34,6 +35,8 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-cli": "^2.3.0",
     "gulp-file-include": "^2.3.0",
+    "gulp-iconfont": "^11.0.0",
+    "gulp-iconfont-css": "^3.0.0",
     "gulp-if": "^3.0.0",
     "gulp-notify": "^4.0.0",
     "gulp-rename": "^2.0.0",

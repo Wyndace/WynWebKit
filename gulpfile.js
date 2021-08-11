@@ -14,6 +14,8 @@ const tinypng = require('gulp-tinypng-compress');
 const rev = require('gulp-rev');
 const revRewrite = require('gulp-rev-rewrite');
 const revDel = require('gulp-rev-delete-original');
+const iconfont = require('gulp-iconfont')
+const iconfontCSS = require('gulp-iconfont-css')
 const fs = require('fs');
 const del = require('del');
 const gulpIf = require('gulp-if');
@@ -37,7 +39,6 @@ const stylesBuilding = () => {
 		.pipe(gulpIf(!isBuilding, browserSync.stream()));
 };
 
-
 const htmlBuilding = () => {
 	return src('./src/*.html')
 		.pipe(fileinclude({
@@ -47,8 +48,6 @@ const htmlBuilding = () => {
 		.pipe(gulpIf(!isBuilding, dest('./app'), dest('./build')))
 		.pipe(gulpIf(!isBuilding, browserSync.stream()));
 };
-
-
 
 const imgBuilding = () => {
 	return src(['./src/img/**.{png,jpeg,jpg,svg}'])
@@ -79,11 +78,29 @@ const svgToSpriteBuilding = () => {
 		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest('./build/img')));
 };
 
+const iconfontBuilding = () => {
+	return src(['./src/img/fonts/**.svg'])
+		.pipe(iconfontCSS({
+			fontName: 'test_font',
+			targetPath: '../../src/scss/_iconfont.scss',
+			fontPath: '../../fonts/'
+		}))
+		.pipe(iconfont({
+			fontName: 'test_font',
+			prependUnicode: true,
+			formats: ['woff2'],
+			normalize: true,
+      fontHeight: 1001
+		}))
+		.pipe(gulpIf(!isBuilding, dest('./app/fonts'), dest('./build/fonts')))
+}
+
 const fontsBuilding = () => {
 	return src('./src/fonts/**.ttf')
 		.pipe(ttf2woff2())
 		.pipe(gulpIf(!isBuilding, dest('./app/fonts'), dest('./build/fonts')));
 }
+
 let initAttr = () => {
 	let srcFonts = './src/scss/_fonts.scss';
 	let appFonts = './app/fonts/';
@@ -215,14 +232,19 @@ const globalWatching = () => {
 	watch('./src/html/*.html', htmlBuilding);
 	watch('./src/img/**.{jpg,jpeg,png,svg}', imgBuilding);
 	watch('./src/video/**.{mp4,mpeg,webm,mpg,avi,mov}', videoBuilding);
+	watch('./src/img/fonts/**.svg', iconfontBuilding);
 	watch('./src/resources/**', resourcesBuilding);
 	watch('./src/fonts/**.ttf', fontsBuilding);
 	watch('./src/fonts/**.ttf', fontsStyleBuilding);
 	watch('./src/js/**', scriptsBuilding);
 };
 
-exports.default = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding),fontsStyleBuilding, stylesBuilding, globalWatching);
+exports.default = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, globalWatching);
 
-exports.build = series(building, cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), fontsStyleBuilding, stylesBuilding, cacheBuild, rewriteBuild);
+exports.build = series(building, cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, cacheBuild, rewriteBuild);
+
+exports.prebuild = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, cachePreBuild, rewritePreBuild);
 
 exports.cache = series(cachePreBuild, rewritePreBuild);
+
+exports.fonts = iconfontBuilding;

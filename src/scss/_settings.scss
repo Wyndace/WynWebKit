@@ -10,7 +10,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "asd", sans-serif;
+  font-family: sans-serif;
   background-color: var(--color-white);
 }
 
@@ -20,10 +20,12 @@ img {
 
 a {
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-ul {
+.list-reset {
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 
@@ -50,8 +52,21 @@ ul {
 
 .btn-reset {
   border: none;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
   background: transparent;
   cursor: pointer;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.hidden {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: 0;
 }
 
 .container {

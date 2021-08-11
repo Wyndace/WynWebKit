@@ -601,7 +601,7 @@
 		"keyframe-declaration-no-important": true,
 		"length-zero-no-unit": true,
 		"max-empty-lines": 1,
-		"max-line-length": 120,
+		"max-line-length": 300,
 		"max-nesting-depth": null,
 		"media-feature-colon-space-after": "always",
 		"media-feature-colon-space-before": "never",

@@ -16,6 +16,8 @@ const revRewrite = require('gulp-rev-rewrite');
 const revDel = require('gulp-rev-delete-original');
 const iconfont = require('gulp-iconfont')
 const iconfontCSS = require('gulp-iconfont-css')
+const concat = require('gulp-concat')
+const uglify = require('gulp-uglify')
 const fs = require('fs');
 const del = require('del');
 const gulpIf = require('gulp-if');
@@ -164,8 +166,22 @@ const fontsStyleBuilding = (done) => {
 
 
 const scriptsBuilding = () => {
-		return src('./src/js/**')
-		.pipe(gulpIf(!isBuilding, dest('./app/js'), dest('./build/js')));
+	src('./src/js/vendor/**.js')
+	.pipe(concat('vendor.js'))
+	.pipe(gulpIf(isBuilding, uglify().on("error", notify.onError())))
+	.pipe(gulpIf(!isBuilding, sourcemaps.init()))
+	.pipe(gulpIf(!isBuilding, dest('./app/js'), dest('./build/js')))
+return src(
+	['./src/js/global.js', './src/js/main.js'])
+	.pipe(fileinclude({
+		prefix: 'fileInclude.',
+		basepath: '@file'
+	}))
+	.pipe(gulpIf(!isBuilding, sourcemaps.init()))
+	.pipe(gulpIf(isBuilding, uglify().on("error", notify.onError())))
+	.pipe(gulpIf(!isBuilding, sourcemaps.write('.')))
+	.pipe(gulpIf(!isBuilding, dest('./app/js'), dest('./build/js')))
+	.pipe(browserSync.stream());
 }
 
 const cleaner = () => {

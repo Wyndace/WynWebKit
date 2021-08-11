@@ -1,0 +1,19 @@
+:root {
+  // Цвета
+  --color-black: #000;
+  --color-white: #fff;
+
+  // Отступы
+  --section-offset: 60px;
+
+  // Границы
+  --border-radius: 4px;
+
+  // Шрифты
+  --font-family: sans-serif;
+
+  // bold
+  --large-bold-font: 700 30px / 140% var(--font-family);
+  --middle-bold-font: 700 20px / 140% var(--font-family);
+  --medium-bold-font: 700 24px / 140% var(--font-family);
+}

@@ -254,7 +254,7 @@ const globalWatching = () => {
 	watch('./src/resources/**', resourcesBuilding);
 	watch('./src/fonts/**/*ttf', fontsBuilding);
 	watch('./src/fonts/**/*ttf', fontsStyleBuilding);
-	watch('./src/js/**', scriptsBuilding);
+	watch('./src/js/**/*.js', scriptsBuilding);
 };
 
 exports.default = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, globalWatching);

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   @include('./html/mixins/_head.html', {'title': 'WynGulp'})
 </head>
+
 <body>
-  @include('./html/header.html')
-  @include('./html/footer.html')
+  <div class="site-container">
+    @include('./html/header.html')
+    @include('./html/footer.html')
+  </div>
   @include('./html/mixins/_scripts.html')
 </body>
+
 </html>

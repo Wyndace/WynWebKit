@@ -246,7 +246,7 @@ const globalWatching = () => {
 	});
 
 	watch('./src/scss/**/*.scss', stylesBuilding);
-	watch('./src/*.html', htmlBuilding);
+	watch('./src/**/*.html', htmlBuilding);
 	watch('./src/html/*.html', htmlBuilding);
 	watch('./src/img/**/*{jpg,jpeg,png,svg}', imgBuilding);
 	watch('./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}', videoBuilding);

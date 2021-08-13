@@ -11,23 +11,22 @@ const smoothScroll = (target, duration) => {
 
   let startTime = null;
 
-  const animation = (currentTime) => {
-    if (startTime === null) startTime = currentTime;
-    let timeElapsed = currentTime - startTime;
-    let run = ease(timeElapsed, startPositon, distance, duration);
-    console.log(run)
-    window.scrollTo(0, run);
-    if (timeElapsed < duration) requestAnimationFrame(animation)
-  };
+  requestAnimationFrame(smoothScrollAnimation);
+}
 
-  const ease = (t, b, c, d) => {
-    t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
-    t--;
-    return -c / 2 * (t * (t - 2) - 1) + b;
+const smoothScrollers = document.querySelectorAll('[data-scroll_to]');
+if (smoothScrollers.length > 0) {
+  for (smoothScroller of smoothScrollers) {
+    if (smoothScroller.dataset.data-scroll_to != '') {
+      smoothScroller.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(smoothScroller.dataset.data-scroll_to);
+        smoothScroll(target, 500);
+      });
+    } else {
+      console.log('You must type selector in data-scroll_to');
+    }
   }
-
-  requestAnimationFrame(animation);
 }
 
 // ====================================================================================================================================================================

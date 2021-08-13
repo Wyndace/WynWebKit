@@ -83,4 +83,20 @@ a {
   outline: none;
 }
 
+._scroll-disabled {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+
+  &_horizontal {
+    overflow-x: hidden;
+    width: 100vw;
+  }
+
+  &_vertical {
+    overflow-y: hidden;
+    height: 100vh;
+  }
+}
+
 // === Здесь хранятся основные стили для всех страниц =================================================================================================================

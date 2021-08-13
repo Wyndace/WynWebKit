@@ -1,34 +1,35 @@
 {
-	"smoothScrollTo.JS Inlcuder with code": {
-		"prefix": "smoothscroll",
-		"body": [
-			"const smoothScrollers = document.querySelectorAll('[data-scroll_to]');",
-			"if (smoothScrollers.length > 0) {",
-			"  for (smoothScroller of smoothScrollers) {",
-			"    if (smoothScroller.dataset.data-scroll_to != '') {",
-			"      smoothScroller.addEventListener('click', (e) => {",
-			"        e.preventDefault();",
-			"        const target = document.querySelector(smoothScroller.dataset.data-scroll_to);",
-			"        smoothScroll(target, ${1:500});",
-			"      });",
-			"    } else {",
-			"      console.log('You must type selector in data-scroll_to');",
-			"    }",
-			"  }",
-			"}"
-		]
+	"js_click": {
+		"prefix": "click",
+		"body": "${1:item}.addEventListener(\"click\", function(e) {\n\t$2\n});",
+		"description": "js_click"
 	},
-
-	"scrollDisabling.JS Inlcuder with code": {
-		"prefix": "scrolldisabling",
+	"getElementsByClassName": {
+		"prefix": "dgcn",
 		"body": [
-			"const scrollDisablers = document.querySelectorAll('[data-scroll_disable]');",
-			"if (scrollDisablers.length > 0) {",
-			"  for (scrollDisabler of scrollDisablers) {",
-			"    positon = scrollDisabler.dataset.scroll_disable;",
-			"    scrollDisabling(scrollDisabler, positon);",
-			"  }",
-			"}"
-		]
+			"const ${1:var} = document.getElementsByClassName('$2');"
+		],
+		"description": "getElementsByClassName"
+	},
+	"document.querySelector": {
+		"prefix": "dqs",
+		"body": [
+			"const ${1:var} = document.querySelector('.$2');"
+		],
+		"description": "document.querySelector"
+	},
+	"document.querySelectorAll": {
+		"prefix": "dqsa",
+		"body": [
+			"const ${1:var} = document.querySelectorAll('.$2');"
+		],
+		"description": "document.querySelectorAll"
+	},
+	"Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log('$1');"
+		],
+		"description": "console log"
 	}
 }

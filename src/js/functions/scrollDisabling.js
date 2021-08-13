@@ -12,4 +12,12 @@ const scrollDisabling = (element, positon) => {
   }
 };
 
+const scrollDisablers = document.querySelectorAll('[data-scroll_disable]');
+if (scrollDisablers.length > 0) {
+  for (scrollDisabler of scrollDisablers) {
+    positon = scrollDisabler.dataset.scroll_disable;
+    scrollDisabling(scrollDisabler, positon);
+  }
+}
+
 // ====================================================================================================================================================================

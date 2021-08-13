@@ -1,0 +1,34 @@
+{
+	"smoothScrollTo.JS Inlcuder with code": {
+		"prefix": "smoothscroll",
+		"body": [
+			"const smoothScrollers = document.querySelectorAll('[data-scroll_to]');",
+			"if (smoothScrollers.length > 0) {",
+			"  for (smoothScroller of smoothScrollers) {",
+			"    if (smoothScroller.dataset.data-scroll_to != '') {",
+			"      smoothScroller.addEventListener('click', (e) => {",
+			"        e.preventDefault();",
+			"        const target = document.querySelector(smoothScroller.dataset.data-scroll_to);",
+			"        smoothScroll(target, ${1:500});",
+			"      });",
+			"    } else {",
+			"      console.log('You must type selector in data-scroll_to');",
+			"    }",
+			"  }",
+			"}"
+		]
+	},
+
+	"scrollDisabling.JS Inlcuder with code": {
+		"prefix": "scrolldisabling",
+		"body": [
+			"const scrollDisablers = document.querySelectorAll('[data-scroll_disable]');",
+			"if (scrollDisablers.length > 0) {",
+			"  for (scrollDisabler of scrollDisablers) {",
+			"    positon = scrollDisabler.dataset.scroll_disable;",
+			"    scrollDisabling(scrollDisabler, positon);",
+			"  }",
+			"}"
+		]
+	}
+}

@@ -4,24 +4,42 @@
 		"body": "${1:item}.addEventListener(\"click\", function(e) {\n\t$2\n});",
 		"description": "js_click"
 	},
+	"for each": {
+		"prefix": "foreach",
+		"body": "${1:items}.forEach(${2:item} => {$5});"
+	},
 	"getElementsByClassName": {
 		"prefix": "dgcn",
 		"body": [
-			"const ${1:var} = document.getElementsByClassName('$2');"
+			"const ${1:var} = ${2:document}.getElementsByClassName('$3');"
 		],
 		"description": "getElementsByClassName"
 	},
 	"document.querySelector": {
 		"prefix": "dqs",
 		"body": [
-			"const ${1:var} = document.querySelector('.$2');"
+			"const ${1:var} = ${2:document}.querySelector('.$3');"
+		],
+		"description": "document.querySelector"
+	},
+	"document.querySelector with data attr": {
+		"prefix": "dqsd",
+		"body": [
+			"const ${1:var} = ${2:document}.querySelector('[data-$3]');"
+		],
+		"description": "document.querySelector"
+	},
+	"document.querySelectorAll with data attr": {
+		"prefix": "dqsad",
+		"body": [
+			"const ${1:var} = ${2:document}.querySelectorAll('[data-$3]');"
 		],
 		"description": "document.querySelector"
 	},
 	"document.querySelectorAll": {
 		"prefix": "dqsa",
 		"body": [
-			"const ${1:var} = document.querySelectorAll('.$2');"
+			"const ${1:var} = ${2:document}.querySelectorAll('.$3');"
 		],
 		"description": "document.querySelectorAll"
 	},

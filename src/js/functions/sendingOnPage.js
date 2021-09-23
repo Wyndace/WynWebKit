@@ -6,11 +6,11 @@ const validateEmail = (email) => {
 }
 
 const validatePhone = (input) => {
-  if (input.value.replace(/\D/g, '') == '') {
-    return false
-  } else {
-    return true;
-  }
+  if (input.value.replace(/\D/g, '') == '' || input.value.replace(/\D/g, '').length < 10) {
+  return false
+} else {
+  return true;
+}
 }
 
 const formAddError = (input) => {
@@ -26,7 +26,6 @@ const formRemoveError = (input) => {
 const formValidate = (form) => {
   let error = 0;
   const formReqiers = form.querySelectorAll('[data-form_require]');
-  console.log(formReqiers)
   for (let index = 0; index < formReqiers.length; index++) {
     const input = formReqiers[index];
     formRemoveError(input);
@@ -39,7 +38,6 @@ const formValidate = (form) => {
       if (!validatePhone(input)) {
         formAddError(input);
         ++error
-        console.log(error)
       }
     } else if (input.getAttribute('type') === 'checkbox' && !input.checked) {
       formAddError(input);
@@ -55,7 +53,6 @@ const formValidate = (form) => {
   return error
 }
 const forms = document.querySelectorAll('[data-form]');
-console.log(forms)
 if (forms.length > 0) {
   forms.forEach(form => {
 

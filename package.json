@@ -1,6 +1,6 @@
 {
   "name": "wyngulp",
-  "version": "1.5.0-beta.4",
+  "version": "1.5.0-beta.5",
   "description": "My Build of Gulp for weblayout",
   "main": "gulpfile.js",
   "scripts": {

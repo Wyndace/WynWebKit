@@ -8,9 +8,10 @@ fileInclude.include('./functions/_animation.js');
 
 
 fileInclude.include('./functions/smoothScrollTo.js'); // Плавная прокрутка до элемента. ТРЕБУЕТ _animation.js
-fileInclude.include('./functions/scrollDisabling.js'); // Полное отключение прокрутки у элемента.
+fileInclude.include('./functions/scrollDisabling.js'); // Полное отключение/включение прокрутки у элемента.
 fileInclude.include('./functions/spoilerCreator.js'); // Спойлеры и аккордионы. ТРЕБУЕТ _animation.js
 fileInclude.include('./functions/sendingOnPage.js'); // Проверка и отправка формы без перезагрузки страницы.
 fileInclude.include('./functions/phoneMask.js'); // Маска для телефона.
+fileInclude.include('./functions/modalWindowCreator.js'); // Модальные окна. ТРЕБУЕТ ScrollDisabling.js
 
 // ====================================================================================================================================================================

@@ -1,4 +1,4 @@
-@mixin spoiler {
+@mixin spoiler($bgc: #000, $tdur: 0.3s) {
   &._init &__title {
     cursor: pointer;
   }
@@ -11,8 +11,8 @@
     top: 20px;
     width: 20px;
     height: 1px;
-    background-color: #fff;
-    transition: transform 0.3s ease 0s;
+    background-color: $bgc;
+    transition: transform $tdur ease 0s;
   }
 
   &._init &__title::after {

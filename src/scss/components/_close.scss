@@ -1,0 +1,34 @@
+.close {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  // close::before,
+  // close::after
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+    height: 15px;
+    background-color: #000;
+    transition: background-color 0.1s ease-in-out;
+  }
+
+  // close::before
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  // close::after
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &:hover.close::before,
+  &:hover.close::after {
+    background-color: #4e4b4b;
+  }
+}

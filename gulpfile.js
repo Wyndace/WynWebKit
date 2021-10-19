@@ -71,7 +71,7 @@ const resourcesBuilding = () => {
 };
 
 const svgToSpriteBuilding = () => {
-	return src('./src/img/svg/**/*svg')
+	return src('./src/img/svg/**/*.svg')
 		.pipe(svgSprite({
 			mode: {
 				stack: {

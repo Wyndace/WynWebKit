@@ -35,7 +35,7 @@
 
 <form data-test data-form action="#" class="form @parent-class__form">
   <div class="form__sending">
-    @include('./loading.html')
+    @include('../mixins/loading.html')
     </div>
   <fieldset class="form__body">
     <legend class="form__title">Заголовок формы</legend>
@@ -49,24 +49,24 @@
     </div>
     <div class="form__item">
       <label for="email" class="form__label">Текст для инпута почты</label>
-      <input type="email" data-form_input_email name="email" id="email" class="form__input">
+      <input type="email" data-form_require data-form_input_email name="email" id="email" class="form__input">
     </div>
     <div class="form__item">
-      @include('./checkbox.html', {'text': 'Текст чекбокса', 'parent-class': 'form', 'id': 'checkbox', 'name':
-      'checkbox', 'type': 'checkbox', 'data-attrs': ''})
+      @include('../mixins/checkbox.html', {'text': 'Текст чекбокса', 'parent-class': 'form', 'id': 'checkbox', 'name':
+      'checkbox', 'type': 'checkbox', 'data-attrs': 'data-form_require'})
     </div>
     <div class="form__item">
-      @include('./checkbox.html', {'text': 'Текст радио-кнопки', 'parent-class': 'form', 'id': 'radio', 'name':
+      @include('../mixins/checkbox.html', {'text': 'Текст радио-кнопки', 'parent-class': 'form', 'id': 'radio', 'name':
       'radio',
       'type': 'radio', 'data-attrs': 'checked'})
     </div>
     <div class="form__item">
-      @include('./checkbox.html', {'text': 'Текст радио-кнопки', 'parent-class': 'form', 'id': 'radio', 'name':
+      @include('../mixins/checkbox.html', {'text': 'Текст радио-кнопки', 'parent-class': 'form', 'id': 'radio', 'name':
       'radio',
       'type': 'radio', 'data-attrs': ''})
     </div>
     <div class="form__item">
-      @include('./checkbox.html', {'text': 'Текст радио-кнопки', 'parent-class': 'form', 'id': 'radio', 'name':
+      @include('../mixins/checkbox.html', {'text': 'Текст радио-кнопки', 'parent-class': 'form', 'id': 'radio', 'name':
       'radio',
       'type': 'radio', 'data-attrs': ''})
     </div>

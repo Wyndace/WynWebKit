@@ -11,14 +11,12 @@ const phoneMask = (e) => {
     return e.target.value == ""
   }
   if (e.data == "+") {
-    return e.target.value = "+" + phoneValue;
-  } else if (rawValue[0] != "+") {
-    return e.target.value = "+" + phoneValue;
+    return e.target.value = "+" + phoneValue.substring(0, 14);
   }
   if (phoneValue.length == 0) {
     return e.target.value = (e.target.data == "+") ? "+" : "";
   } else if (phoneValue.length > 0) {
-    return e.target.value = "+" + phoneValue
+    return e.target.value = "+" + phoneValue.substring(0, 14);
   }
 };
 

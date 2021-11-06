@@ -55,10 +55,12 @@ const formValidate = (form) => {
 const forms = document.querySelectorAll('[data-form]');
 if (forms.length > 0) {
   forms.forEach(form => {
-
     async function formSend(e) {
       e.preventDefault();
       let error = formValidate(form);
+      if (form.hasAttribute('data-survey')) {
+        error = 0;
+      }
       if (error === 0) {
         form.classList.add('_sending');
         if (form.dataset.test == null) {

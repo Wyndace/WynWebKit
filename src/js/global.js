@@ -19,6 +19,7 @@ fileInclude.include('./functions/scrollDisabling.js'); // Полное откл�
 fileInclude.include('./functions/spoilerCreator.js'); // Спойлеры и аккордионы. ТРЕБУЕТ _animation.js
 fileInclude.include('./functions/sendingOnPage.js'); // Проверка и отправка формы без перезагрузки страницы.
 fileInclude.include('./functions/phoneMask.js'); // Маска для телефона.
+fileInclude.include('./functions/surveySlide.js'); // Опросник в виде слайдов. ТРЕБУЕТ sendingOnPage.js. ТРЕБУЕТ phoneMask.js.
 fileInclude.include('./functions/modalWindowCreator.js'); // Модальные окна. ТРЕБУЕТ ScrollDisabling.js
 fileInclude.include('./functions/tabsCreator.js'); // Табы.
 fileInclude.include('./functions/isMobile.js'); // Проверка на устройство с touch экраном. ТРЕБУЕТ _function.js

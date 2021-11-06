@@ -9,3 +9,7 @@ const parseBoolean = value => {
   }
   return;
 }
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

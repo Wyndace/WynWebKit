@@ -1,6 +1,6 @@
 "use strict"
 
-const { src, dest, series, parallel, watch } = require('gulp');
+const { src, dest, series, parallel, watch, task } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const notify = require('gulp-notify');
 const rename = require('gulp-rename');
@@ -21,11 +21,12 @@ const uglify = require('gulp-uglify')
 const fs = require('fs');
 const del = require('del');
 const gulpIf = require('gulp-if');
+const realFavicon = require('gulp-real-favicon');
 
-let authKeys = JSON.parse(fs.readFileSync('./auth.json', 'utf-8'));
+// let authKeys = JSON.parse(fs.readFileSync('./auth.json', 'utf-8'));
 let isBuilding = false;
 let buildDir = require('path').basename(__dirname)
-
+const faviconDataFile = 'faviconData.json'
 
 const building = (done) => {
 	isBuilding = true;
@@ -60,6 +61,143 @@ const imgBuilding = () => {
 		})))
 		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest(`./${buildDir}/img`)));
 };
+
+// const faviconGenerator = (done) => {
+// 	if(!isBuilding) {realFavicon.generateFavicon({
+// 		masterPicture: `./src/favicon/${buildDir}.png`,
+// 		dest: `./app/favicon/`,
+// 		iconsPath: '/',
+// 		design: {
+// 			ios: {
+// 				pictureAspect: 'backgroundAndMargin',
+// 				backgroundColor: '#000000',
+// 				margin: '11%',
+// 				assets: {
+// 					ios6AndPriorIcons: false,
+// 					ios7AndLaterIcons: false,
+// 					precomposedIcons: false,
+// 					declareOnlyDefaultIcon: true
+// 				},
+// 				appName: buildDir,
+// 			},
+// 			desktopBrowser: {
+// 				design: 'raw'
+// 			},
+// 			windows: {
+// 				pictureAspect: 'whiteSilhouette',
+// 				backgroundColor: '#000000',
+// 				onConflict: 'override',
+// 				assets: {
+// 					windows80Ie10Tile: true,
+// 					windows10Ie11EdgeTiles: {
+// 						small: true,
+// 						medium: true,
+// 						big: true,
+// 						rectangle: true
+// 					}
+// 				},
+// 				appName: buildDir,
+// 			},
+// 			androidChrome: {
+// 				pictureAspect: 'noChange',
+// 				themeColor: '#000000',
+// 				manifest: {
+// 					name: buildDir,
+// 					display: 'standalone',
+// 					orientation: 'notSet',
+// 					onConflict: 'override',
+// 					declared: true
+// 				},
+// 				assets: {
+// 					legacyIcon: false,
+// 					lowResolutionIcons: false
+// 				}
+// 			},
+// 			safariPinnedTab: {
+// 				pictureAspect: 'silhouette',
+// 				themeColor: '#000000'
+// 			}
+// 		},
+// 		settings: {
+// 			scalingAlgorithm: 'Bilinear',
+// 			errorOnImageTooSmall: false,
+// 			readmeFile: false,
+// 			htmlCodeFile: false,
+// 			usePathAsIs: false
+// 		},
+// 		markupFile: faviconDataFile
+// 	})} else { realFavicon.generateFavicon({
+// 		masterPicture: `./src/favicon/${buildDir}.png`,
+// 		dest: `./${buildDir}/favicon/`,
+// 		iconsPath: '/',
+// 		design: {
+// 			ios: {
+// 				pictureAspect: 'backgroundAndMargin',
+// 				backgroundColor: '#000000',
+// 				margin: '11%',
+// 				assets: {
+// 					ios6AndPriorIcons: false,
+// 					ios7AndLaterIcons: false,
+// 					precomposedIcons: false,
+// 					declareOnlyDefaultIcon: true
+// 				},
+// 				appName: buildDir,
+// 			},
+// 			desktopBrowser: {
+// 				design: 'raw'
+// 			},
+// 			windows: {
+// 				pictureAspect: 'whiteSilhouette',
+// 				backgroundColor: '#000000',
+// 				onConflict: 'override',
+// 				assets: {
+// 					windows80Ie10Tile: true,
+// 					windows10Ie11EdgeTiles: {
+// 						small: true,
+// 						medium: true,
+// 						big: true,
+// 						rectangle: true
+// 					}
+// 				},
+// 				appName: buildDir,
+// 			},
+// 			androidChrome: {
+// 				pictureAspect: 'noChange',
+// 				themeColor: '#000000',
+// 				manifest: {
+// 					name: buildDir,
+// 					display: 'standalone',
+// 					orientation: 'notSet',
+// 					onConflict: 'override',
+// 					declared: true
+// 				},
+// 				assets: {
+// 					legacyIcon: false,
+// 					lowResolutionIcons: false
+// 				}
+// 			},
+// 			safariPinnedTab: {
+// 				pictureAspect: 'silhouette',
+// 				themeColor: '#000000'
+// 			}
+// 		},
+// 		settings: {
+// 			scalingAlgorithm: 'Bilinear',
+// 			errorOnImageTooSmall: false,
+// 			readmeFile: false,
+// 			htmlCodeFile: false,
+// 			usePathAsIs: false
+// 		},
+// 		markupFile: faviconDataFile
+// 	})}
+//  	 done()
+// }
+
+// const faviconInjector = () => {
+// 	return src([ 'src/*.html' ])
+// 		.pipe(realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(faviconDataFile)).favicon.html_code))
+// 		.pipe(gulpIf(!isBuilding, dest('./app'), dest(`./${buildDir}`)))
+// }
 
 const videoBuilding = () => {
 	return src(['./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}'])
@@ -166,7 +304,6 @@ const fontsStyleBuilding = (done) => {
 	done();
 }
 
-
 const scriptsBuilding = () => {
 return src(
 	['./src/js/global.js', './src/js/main.js', './src/js/vendor.js'])
@@ -252,11 +389,177 @@ const globalWatching = () => {
 	watch('./src/js/**/*.js', scriptsBuilding);
 };
 
+
+const faviconGenerator = (done) => {
+	if (!isBuilding) {
+		realFavicon.generateFavicon({
+			masterPicture: `./src/favicon/${buildDir}.png`,
+			dest: `./app/favicon/`,
+			iconsPath: './favicon/',
+			design: {
+				ios: {
+					pictureAspect: 'backgroundAndMargin',
+					backgroundColor: '#000000',
+					margin: '11%',
+					assets: {
+						ios6AndPriorIcons: false,
+						ios7AndLaterIcons: false,
+						precomposedIcons: false,
+						declareOnlyDefaultIcon: true
+					},
+					appName: buildDir
+				},
+				desktopBrowser: {
+					design: 'raw'
+				},
+				windows: {
+					pictureAspect: 'whiteSilhouette',
+					backgroundColor: '#000000',
+					onConflict: 'override',
+					assets: {
+						windows80Ie10Tile: true,
+						windows10Ie11EdgeTiles: {
+							small: true,
+							medium: true,
+							big: true,
+							rectangle: true
+						}
+					},
+					appName: buildDir
+				},
+				androidChrome: {
+					pictureAspect: 'noChange',
+					themeColor: '#000000',
+					manifest: {
+						name: buildDir,
+						display: 'standalone',
+						orientation: 'notSet',
+						onConflict: 'override',
+						declared: true
+					},
+					assets: {
+						legacyIcon: false,
+						lowResolutionIcons: false
+					}
+				},
+				safariPinnedTab: {
+					pictureAspect: 'silhouette',
+					themeColor: '#000000'
+				}
+			},
+			settings: {
+				scalingAlgorithm: 'Bilinear',
+				errorOnImageTooSmall: false,
+				readmeFile: false,
+				htmlCodeFile: false,
+				usePathAsIs: false
+			},
+			markupFile: faviconDataFile
+		}, function() {
+			done();
+		})
+	} else {
+	realFavicon.generateFavicon({
+		masterPicture: `./src/favicon/${buildDir}.png`,
+		dest: `./${buildDir}/favicon/`,
+		iconsPath: './favicon/',
+		design: {
+			ios: {
+				pictureAspect: 'backgroundAndMargin',
+				backgroundColor: '#000000',
+				margin: '11%',
+				assets: {
+					ios6AndPriorIcons: false,
+					ios7AndLaterIcons: false,
+					precomposedIcons: false,
+					declareOnlyDefaultIcon: true
+				},
+				appName: buildDir
+			},
+			desktopBrowser: {
+				design: 'raw'
+			},
+			windows: {
+				pictureAspect: 'whiteSilhouette',
+				backgroundColor: '#000000',
+				onConflict: 'override',
+				assets: {
+					windows80Ie10Tile: true,
+					windows10Ie11EdgeTiles: {
+						small: true,
+						medium: true,
+						big: true,
+						rectangle: true
+					}
+				},
+				appName: buildDir
+			},
+			androidChrome: {
+				pictureAspect: 'noChange',
+				themeColor: '#000000',
+				manifest: {
+					name: buildDir,
+					display: 'standalone',
+					orientation: 'notSet',
+					onConflict: 'override',
+					declared: true
+				},
+				assets: {
+					legacyIcon: false,
+					lowResolutionIcons: false
+				}
+			},
+			safariPinnedTab: {
+				pictureAspect: 'silhouette',
+				themeColor: '#000000'
+			}
+		},
+		settings: {
+			scalingAlgorithm: 'Bilinear',
+			errorOnImageTooSmall: false,
+			readmeFile: false,
+			htmlCodeFile: false,
+			usePathAsIs: false
+		},
+		markupFile: faviconDataFile
+	}, function() {
+		done();
+	})}
+};
+
+// Inject the favicon markups in your HTML pages. You should run
+// this task whenever you modify a page. You can keep this task
+// as is or refactor your existing HTML pipeline.
+const faviconInjector = () => {
+	if (!isBuilding) {
+	return src([ `./app/*.html` ])
+		.pipe(realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(faviconDataFile)).favicon.html_code))
+		.pipe(dest('./app'))
+	} else {
+	return src([ `./${buildDir}/*.html` ])
+		.pipe(realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(faviconDataFile)).favicon.html_code))
+		.pipe(dest(`./${buildDir}`))
+		}
+};
+
+// Check for updates on RealFaviconGenerator (think: Apple has just
+// released a new Touch icon along with the latest version of iOS).
+// Run this task from time to time. Ideally, make it part of your
+// continuous integration system.
+task('check-for-favicon-update', function(done) {
+	var currentVersion = JSON.parse(fs.readFileSync(faviconDataFile)).version;
+	realFavicon.checkForUpdates(currentVersion, function(err) {
+		if (err) {
+			throw err;
+		}
+	});
+});
+
 exports.default = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, globalWatching);
 
-exports.build = series(building, cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, cacheBuild, rewriteBuild);
+exports.build = series(building, cleaner, faviconGenerator, parallel(htmlBuilding, fontsBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), faviconInjector, iconfontBuilding, fontsStyleBuilding, stylesBuilding, cacheBuild, rewriteBuild);
 
-exports.prebuild = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, cachePreBuild, rewritePreBuild);
+exports.prebuild = series(cleaner, faviconGenerator, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), faviconInjector, iconfontBuilding, fontsStyleBuilding, stylesBuilding, cachePreBuild, rewritePreBuild);
 
 exports.cache = series(cachePreBuild, rewritePreBuild);
 

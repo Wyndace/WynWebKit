@@ -1,3 +1,5 @@
+// === Mobile Cheker ======================================================================================================================================================
+
 const appleIphone = /iPhone/i;
 const appleIpod = /iPod/i;
 const appleTablet = /iPad/i;
@@ -93,3 +95,5 @@ const isMobile = {
 isMobile.any = isMobile.apple.device ||  isMobile.android.device || isMobile.windows.device ||  isMobile.other.device;
 isMobile.phone = isMobile.apple.phone || isMobile.android.phone || isMobile.windows.phone;
 isMobile.tablet = isMobile.apple.tablet || isMobile.android.tablet || isMobile.windows.tablet;
+
+// ========================================================================================================================================================================

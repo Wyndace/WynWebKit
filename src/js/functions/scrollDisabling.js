@@ -1,4 +1,4 @@
-// === Scroll disabling ===============================================================================================================================================
+// === Scroll disabling ===================================================================================================================================================
 
 const scrollDisabling = (element, fixed = false, position) => {
   if (
@@ -19,7 +19,7 @@ const scrollDisabling = (element, fixed = false, position) => {
         }
       }
     }
-    if (position == "verical") {
+    if (position == "vertical") {
       element.classList.add("_scroll-disabled_vertical");
     } else if (position == "horizontal") {
       element.classList.add("_scroll-disabled_horizontal");
@@ -47,7 +47,7 @@ const scrollEnabling = (element, fixed = false, position) => {
         }
       }
     }
-    if (position == "verical") {
+    if (position == "vertical") {
       element.classList.remove("_scroll-disabled_vertical");
     } else if (position == "horizontal") {
       element.classList.remove("_scroll-disabled_horizontal");
@@ -67,4 +67,4 @@ if (scrollDisablers.length > 0) {
 
 const scrollFixedElements = document.querySelectorAll("[data-scroll-fixed]");
 
-// ====================================================================================================================================================================
+// ========================================================================================================================================================================

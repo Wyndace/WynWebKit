@@ -3,7 +3,6 @@
 const smoothScroll = (target, duration) => {
   const topOffset = getComputedStyle(document.querySelector('.header')).position == 'fixed' || getComputedStyle(document.querySelector('.header')).position == 'sticky' ? document.querySelector('.header').offsetHeight : 0;
 
-  // console.log(topOffset)
   console.log(target);
 
   const targetPosition = target.getBoundingClientRect().top + window.scrollY;

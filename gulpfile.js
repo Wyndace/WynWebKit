@@ -1,6 +1,7 @@
 "use strict"
 
-const { src, dest, series, parallel, watch, task } = require('gulp');
+const { src, dest, series, parallel, task } = require('gulp');
+const watch = require('gulp-watch')
 const sass = require('gulp-sass')(require('sass'));
 const notify = require('gulp-notify');
 const rename = require('gulp-rename');
@@ -62,142 +63,6 @@ const imgBuilding = () => {
 		.pipe(gulpIf(!isBuilding, dest('./app/img'), dest(`./${buildDir}/img`)));
 };
 
-// const faviconGenerator = (done) => {
-// 	if(!isBuilding) {realFavicon.generateFavicon({
-// 		masterPicture: `./src/favicon/${buildDir}.png`,
-// 		dest: `./app/favicon/`,
-// 		iconsPath: '/',
-// 		design: {
-// 			ios: {
-// 				pictureAspect: 'backgroundAndMargin',
-// 				backgroundColor: '#000000',
-// 				margin: '11%',
-// 				assets: {
-// 					ios6AndPriorIcons: false,
-// 					ios7AndLaterIcons: false,
-// 					precomposedIcons: false,
-// 					declareOnlyDefaultIcon: true
-// 				},
-// 				appName: buildDir,
-// 			},
-// 			desktopBrowser: {
-// 				design: 'raw'
-// 			},
-// 			windows: {
-// 				pictureAspect: 'whiteSilhouette',
-// 				backgroundColor: '#000000',
-// 				onConflict: 'override',
-// 				assets: {
-// 					windows80Ie10Tile: true,
-// 					windows10Ie11EdgeTiles: {
-// 						small: true,
-// 						medium: true,
-// 						big: true,
-// 						rectangle: true
-// 					}
-// 				},
-// 				appName: buildDir,
-// 			},
-// 			androidChrome: {
-// 				pictureAspect: 'noChange',
-// 				themeColor: '#000000',
-// 				manifest: {
-// 					name: buildDir,
-// 					display: 'standalone',
-// 					orientation: 'notSet',
-// 					onConflict: 'override',
-// 					declared: true
-// 				},
-// 				assets: {
-// 					legacyIcon: false,
-// 					lowResolutionIcons: false
-// 				}
-// 			},
-// 			safariPinnedTab: {
-// 				pictureAspect: 'silhouette',
-// 				themeColor: '#000000'
-// 			}
-// 		},
-// 		settings: {
-// 			scalingAlgorithm: 'Bilinear',
-// 			errorOnImageTooSmall: false,
-// 			readmeFile: false,
-// 			htmlCodeFile: false,
-// 			usePathAsIs: false
-// 		},
-// 		markupFile: faviconDataFile
-// 	})} else { realFavicon.generateFavicon({
-// 		masterPicture: `./src/favicon/${buildDir}.png`,
-// 		dest: `./${buildDir}/favicon/`,
-// 		iconsPath: '/',
-// 		design: {
-// 			ios: {
-// 				pictureAspect: 'backgroundAndMargin',
-// 				backgroundColor: '#000000',
-// 				margin: '11%',
-// 				assets: {
-// 					ios6AndPriorIcons: false,
-// 					ios7AndLaterIcons: false,
-// 					precomposedIcons: false,
-// 					declareOnlyDefaultIcon: true
-// 				},
-// 				appName: buildDir,
-// 			},
-// 			desktopBrowser: {
-// 				design: 'raw'
-// 			},
-// 			windows: {
-// 				pictureAspect: 'whiteSilhouette',
-// 				backgroundColor: '#000000',
-// 				onConflict: 'override',
-// 				assets: {
-// 					windows80Ie10Tile: true,
-// 					windows10Ie11EdgeTiles: {
-// 						small: true,
-// 						medium: true,
-// 						big: true,
-// 						rectangle: true
-// 					}
-// 				},
-// 				appName: buildDir,
-// 			},
-// 			androidChrome: {
-// 				pictureAspect: 'noChange',
-// 				themeColor: '#000000',
-// 				manifest: {
-// 					name: buildDir,
-// 					display: 'standalone',
-// 					orientation: 'notSet',
-// 					onConflict: 'override',
-// 					declared: true
-// 				},
-// 				assets: {
-// 					legacyIcon: false,
-// 					lowResolutionIcons: false
-// 				}
-// 			},
-// 			safariPinnedTab: {
-// 				pictureAspect: 'silhouette',
-// 				themeColor: '#000000'
-// 			}
-// 		},
-// 		settings: {
-// 			scalingAlgorithm: 'Bilinear',
-// 			errorOnImageTooSmall: false,
-// 			readmeFile: false,
-// 			htmlCodeFile: false,
-// 			usePathAsIs: false
-// 		},
-// 		markupFile: faviconDataFile
-// 	})}
-//  	 done()
-// }
-
-// const faviconInjector = () => {
-// 	return src([ 'src/*.html' ])
-// 		.pipe(realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(faviconDataFile)).favicon.html_code))
-// 		.pipe(gulpIf(!isBuilding, dest('./app'), dest(`./${buildDir}`)))
-// }
 
 const videoBuilding = () => {
 	return src(['./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}'])
@@ -370,26 +235,6 @@ const rewriteBuild = () => {
     .pipe(dest(`./${buildDir}`));
 }
 
-const globalWatching = () => {
-	browserSync.init({
-		server: {
-			baseDir: './app'
-		}
-	});
-
-	watch('./src/scss/**/*.scss', stylesBuilding);
-	watch('./src/**/*.html', htmlBuilding);
-	watch('./src/html/*.html', htmlBuilding);
-	watch('./src/img/**/*{jpg,jpeg,png,svg}', imgBuilding);
-	watch('./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}', videoBuilding);
-	watch('./src/img/fonts/**/*svg', iconfontBuilding);
-	watch('./src/resources/**', resourcesBuilding);
-	watch('./src/fonts/**/*ttf', fontsBuilding);
-	watch('./src/fonts/**/*ttf', fontsStyleBuilding);
-	watch('./src/js/**/*.js', scriptsBuilding);
-};
-
-
 const faviconGenerator = (done) => {
 	if (!isBuilding) {
 		realFavicon.generateFavicon({
@@ -554,6 +399,26 @@ task('check-for-favicon-update', function(done) {
 		}
 	});
 });
+
+
+const globalWatching = () => {
+	browserSync.init({
+		server: {
+			baseDir: './app',
+			
+		}, open: false
+	});
+
+	watch('./src/scss/**/*.scss', stylesBuilding);
+	watch('./src/**/*.html', htmlBuilding);
+	watch('./src/img/**/*{jpg,jpeg,png,svg}', imgBuilding);
+	watch('./src/video/**/*{mp4,mpeg,webm,mpg,avi,mov}', videoBuilding);
+	watch('./src/img/fonts/**/*.svg', iconfontBuilding);
+	watch('./src/resources/**', resourcesBuilding);
+	watch('./src/fonts/**/*ttf', fontsBuilding);
+	watch('./src/fonts/**/*ttf', fontsStyleBuilding);
+	watch('./src/js/**/*.js', scriptsBuilding);
+};
 
 exports.default = series(cleaner, parallel(htmlBuilding, fontsBuilding, imgBuilding, svgToSpriteBuilding, videoBuilding, resourcesBuilding, scriptsBuilding), iconfontBuilding, fontsStyleBuilding, stylesBuilding, globalWatching);
 

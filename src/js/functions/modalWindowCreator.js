@@ -1,3 +1,5 @@
+// === Modal window Creator ===============================================================================================================================================
+
 const modalClose = (modal, enableScroll = true) => {
   modal.classList.add("_hidden");
   if (enableScroll) {
@@ -16,7 +18,7 @@ const modalOpen = (modal) => {
   }
   modal.classList.remove("_hidden");
   modal.addEventListener("click", function (e) {
-    if (!e.target.closest("[data-modal-area]")) {
+    if (!e.target.closest("[data-modal-window_area]")) {
       modalClose(e.target.closest("[data-modal-window]"));
     }
   });
@@ -45,7 +47,7 @@ if (modals.length > 0) {
   }
 }
 
-const modalClosingItems = document.querySelectorAll("[data-close-modal]");
+const modalClosingItems = document.querySelectorAll("[data-modal-window_close]");
 if (modalClosingItems.length > 0) {
   for (let index = 0; index < modalClosingItems.length; index++) {
     const modalClosingItem = modalClosingItems[index];
@@ -56,3 +58,5 @@ if (modalClosingItems.length > 0) {
     });
   }
 }
+
+// ========================================================================================================================================================================

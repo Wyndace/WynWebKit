@@ -1,10 +1,8 @@
-// === Modal window Creator ===============================================================================================================================================
-
 const modalClose = (modal, enableScroll = true) => {
   modal.classList.add("_hidden");
   if (enableScroll) {
-      scrollEnabling(document.querySelector("body"), true)
-    }
+    scrollEnabling(document.querySelector("body"), true);
+  }
 };
 
 const modalOpen = (modal) => {
@@ -58,5 +56,3 @@ if (modalClosingItems.length > 0) {
     });
   }
 }
-
-// ========================================================================================================================================================================

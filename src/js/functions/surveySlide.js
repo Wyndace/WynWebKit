@@ -1,30 +1,30 @@
 const data = [
   {
     number: 1,
-    title: "Как вам данный плагин?",
+    title: "How do you like this plugin?",
     require: true,
     answer_alias: "quality",
     slideAnswers: [
       {
         answer_image: "https://fakeimg.pl/280x293/5ce1e6/fff/?text=surveySlide&font=Intro",
-        answer_title: "Супер",
+        answer_title: "Super",
         type: "radio",
       },
       {
         answer_image: "https://fakeimg.pl/280x293/5ce1e6/fff/?text=surveySlide&font=Intro",
-        answer_title: "Крутой",
+        answer_title: "Steep",
         type: "radio",
       },
       {
         answer_image: "https://fakeimg.pl/280x293/5ce1e6/fff/?text=surveySlide&font=Intro",
-        answer_title: "Лучше него, ничего не видел!",
+        answer_title: "I have not seen anything better!",
         type: "radio",
       },
     ],
   },
   {
     number: 2,
-    title: "Что вы бы хотели дополнить?",
+    title: "What would you like to add?",
     require: true,
     answer_alias: "great",
     slideAnswers: [
@@ -35,20 +35,20 @@ const data = [
   },
   {
     number: 3,
-    title: "Оставьте свои контакты, и мы вам перезвоним",
+    title: "Leave your contacts and we will call you back",
     require: true,
     answer_alias: "contacts",
     slideAnswers: [
       {
-        answer_title: "Введите ваше имя",
+        answer_title: "Enter your name",
         type: "text",
       },
       {
-        answer_title: "Введите вашу почту",
+        answer_title: "Enter your mail",
         type: "email",
       },
       {
-        answer_title: "Введите ваш телефон",
+        answer_title: "Enter your phone",
         type: "tel",
       },
     ],
@@ -204,7 +204,7 @@ class surveySlide {
 }
 
 window.quiz = new surveySlide("[data-survey]", data, {
-  buttonNextText: "Дальше",
-  buttonSkipText: "Пропустить",
-  buttonSubmitText: "Отправить",
+  buttonNextText: "Next",
+  buttonSkipText: "Skip",
+  buttonSubmitText: "Send",
 });

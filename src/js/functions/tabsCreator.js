@@ -1,4 +1,4 @@
- const tabOpen = (path) => {
+const tabOpen = (path) => {
   const tabOpener = document.querySelector(`[data-tab_path="${path}"]`);
   const tab = document.querySelector(path);
   tabOpener.parentElement.classList.add("_active");
@@ -15,8 +15,7 @@ if (tabsOpeners.length > 0) {
     tabsOpener.addEventListener("click", function (e) {
       e.preventDefault();
       tabsOpeners.forEach((el) => {
-        el.parentElement.classList.remove("_active") &&
-          el.classList.remove("_active");
+        el.parentElement.classList.remove("_active") && el.classList.remove("_active");
         document.querySelectorAll(el.dataset.tab_path).forEach((tab) => {
           tab.classList.add("_hidden");
         });

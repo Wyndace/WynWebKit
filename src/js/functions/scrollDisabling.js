@@ -1,11 +1,5 @@
-// === Scroll disabling ===================================================================================================================================================
-
 const scrollDisabling = (element, fixed = false, position) => {
-  if (
-    !element.classList.contains("_scroll-disabled") &&
-    !element.classList.contains("_scroll-disabled_horizontal") &&
-    !element.classList.contains("_scroll-disabled_vertical")
-  ) {
+  if (!element.classList.contains("_scroll-disabled") && !element.classList.contains("_scroll-disabled_horizontal") && !element.classList.contains("_scroll-disabled_vertical")) {
     if (fixed) {
       if (element == document.body) {
         paddingOffset = innerWidth - document.body.offsetWidth + "px";
@@ -30,11 +24,7 @@ const scrollDisabling = (element, fixed = false, position) => {
 };
 
 const scrollEnabling = (element, fixed = false, position) => {
-  if (
-    element.classList.contains("_scroll-disabled") ||
-    element.classList.contains("_scroll-disabled_horizontal") ||
-    element.classList.contains("_scroll-disabled_vertical")
-  ) {
+  if (element.classList.contains("_scroll-disabled") || element.classList.contains("_scroll-disabled_horizontal") || element.classList.contains("_scroll-disabled_vertical")) {
     if (fixed) {
       if (element == document.body) {
         document.body.style.paddingRight = 0;
@@ -66,5 +56,3 @@ if (scrollDisablers.length > 0) {
 }
 
 const scrollFixedElements = document.querySelectorAll("[data-scroll-fixed]");
-
-// ========================================================================================================================================================================

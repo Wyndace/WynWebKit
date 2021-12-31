@@ -1,66 +1,64 @@
-// === spoilerCreator =================================================================================================================================================
-
 const initSpoilerBody = (spoilersBlock, hideSpoilerBody = true) => {
-  const spoilerTitles = spoilersBlock.querySelectorAll('[data-spoiler]');
+  const spoilerTitles = spoilersBlock.querySelectorAll("[data-spoiler]");
   if (spoilerTitles.length > 0) {
-    spoilerTitles.forEach(spoilerTitle => {
+    spoilerTitles.forEach((spoilerTitle) => {
       if (hideSpoilerBody) {
-        spoilerTitle.removeAttribute('tabindex');
-        if (!spoilerTitle.classList.contains('_active')) {
+        spoilerTitle.removeAttribute("tabindex");
+        if (!spoilerTitle.classList.contains("_active")) {
           spoilerTitle.nextElementSibling.hidden = true;
         }
       } else {
-        spoilerTitle.setAttribute('tabindex', '-1');
+        spoilerTitle.setAttribute("tabindex", "-1");
         spoilerTitle.nextElementSibling.hidden = false;
       }
     });
   }
-}
+};
 
 const setSpoilerAction = (e) => {
   const el = e.target;
-  if (el.hasAttribute('data-spoiler') || el.closest('[data-spoiler]')) {
-    const spoilerTitle = el.hasAttribute('data-spoiler') ? el : el.closest('[data-spoiler]');
-    const spoilersBlock = spoilerTitle.closest('[data-spoilers]');
-    const oneSpoiler = spoilersBlock.hasAttribute('data-one-spoiler') ? true : false;
-    if (!spoilersBlock.querySelectorAll('._slide').length) {
-      if (oneSpoiler && !spoilerTitle.classList.contains('_active')) {
+  if (el.hasAttribute("data-spoiler") || el.closest("[data-spoiler]")) {
+    const spoilerTitle = el.hasAttribute("data-spoiler") ? el : el.closest("[data-spoiler]");
+    const spoilersBlock = spoilerTitle.closest("[data-spoilers]");
+    const oneSpoiler = spoilersBlock.hasAttribute("data-one-spoiler") ? true : false;
+    if (!spoilersBlock.querySelectorAll("._slide").length) {
+      if (oneSpoiler && !spoilerTitle.classList.contains("_active")) {
         hideSpoilersBody(spoilersBlock);
       }
-      spoilerTitle.classList.toggle('_active');
+      spoilerTitle.classList.toggle("_active");
       _slideToggle(spoilerTitle.nextElementSibling, 500);
     }
     e.preventDefault();
   }
-}
+};
 const hideSpoilersBody = (spoilersBlock) => {
-  const spoilerActiveTitle = spoilersBlock.querySelector('[data-spoiler]._active');
+  const spoilerActiveTitle = spoilersBlock.querySelector("[data-spoiler]._active");
   if (spoilerActiveTitle) {
-    spoilerActiveTitle.classList.remove('_active');
+    spoilerActiveTitle.classList.remove("_active");
     _slideUp(spoilerActiveTitle.nextElementSibling, 500);
   }
-}
+};
 
 const initSpoilers = (spoilersArray, matchMedia = false) => {
-  spoilersArray.forEach(spoilersBlock => {
+  spoilersArray.forEach((spoilersBlock) => {
     spoilersBlock = matchMedia ? spoilersBlock.item : spoilersBlock;
     if (matchMedia.matches || !matchMedia) {
-      spoilersBlock.classList.add('_init');
+      spoilersBlock.classList.add("_init");
       initSpoilerBody(spoilersBlock);
-      spoilersBlock.addEventListener('click', setSpoilerAction);
+      spoilersBlock.addEventListener("click", setSpoilerAction);
     } else {
-      spoilersBlock.classList.remove('_init');
+      spoilersBlock.classList.remove("_init");
       initSpoilerBody(spoilersBlock, false);
-      spoilersBlock.removeEventListener('click', setSpoilerAction)
+      spoilersBlock.removeEventListener("click", setSpoilerAction);
     }
   });
-}
+};
 
-const spoilersArray = document.querySelectorAll('[data-spoilers]')
+const spoilersArray = document.querySelectorAll("[data-spoilers]");
 if (spoilersArray.length > 0) {
   const spoilersRegular = Array.from(spoilersArray).filter((item) => {
     return !item.dataset.spoilers;
-  })
+  });
 
   if (spoilersRegular.length > 0) {
     initSpoilers(spoilersRegular);
@@ -72,7 +70,7 @@ if (spoilersArray.length > 0) {
 
   if (spoilersMedia.length > 0) {
     const breakpointsArray = [];
-    spoilersMedia.forEach(item => {
+    spoilersMedia.forEach((item) => {
       const params = item.dataset.spoilers;
       const breakpoint = {};
       const paramsArray = params.split(", ");
@@ -90,7 +88,7 @@ if (spoilersArray.length > 0) {
       return self.indexOf(item) === index;
     });
 
-    mediaQuaries.forEach(breakpoint => {
+    mediaQuaries.forEach((breakpoint) => {
       const paramsArray = breakpoint.split(", ");
       const mediaBreakpoint = paramsArray[1];
       const mediaType = paramsArray[2];
@@ -108,5 +106,3 @@ if (spoilersArray.length > 0) {
     });
   }
 }
-
-// ====================================================================================================================================================================

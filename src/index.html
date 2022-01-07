@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   @include('./html/mixins/_head.html', {'title': 'WynGulp'})
@@ -7,8 +7,18 @@
 
 <body>
   <div class="site-container">
-    @include('./html/components/header.html')
-    @include('./html/components/footer.html')
+    <div style="padding: 15px">
+      <h1 style="margin:0; margin-bottom: 5px;">Hi, user! This page is needed to debug other pages, as well as
+        convenient to watch all Existing pages!</h1>
+    </div>
+    <main class="page">
+      <p style="margin: 0; margin-bottom: 5px; margin-left: 15px;">All pages:</p>
+      <ul style="margin: 0;">
+        <li>
+          <a href="./page.html">Page</a>
+        </li>
+      </ul>
+    </main>
   </div>
   @include('./html/mixins/_scripts.html')
 </body>

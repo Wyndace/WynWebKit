@@ -14,8 +14,8 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-family);
-  background-color: var(--color-white);
+  font-family: cl(font-family);
+  background-color: cl(color-white);
 }
 
 img {

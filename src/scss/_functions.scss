@@ -1,0 +1,21 @@
+// Functions are stored here
+
+// ========================================================================================================================================================================
+
+@function hextorgb($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+@function cl($name, $opacity: false) {
+  @if $opacity {
+    @return rgba(var(--#{unquote($name)}), $opacity);
+  } @else {
+    @if "color" == str-slice($name, 1, 5) {
+      @return rgb(var(--#{unquote($name)}));
+    } @else {
+      @return var(--#{unquote($name)});
+    }
+  }
+}
+
+// ========================================================================================================================================================================

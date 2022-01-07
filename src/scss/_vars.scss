@@ -4,8 +4,8 @@
 
 :root {
   // Colors
-  --color-black: #000;
-  --color-white: #fff;
+  --color-black: #{hextorgb(#000)};
+  --color-white: #{hextorgb(#fff)};
 
   // Indents
   --section-offset: 60px;

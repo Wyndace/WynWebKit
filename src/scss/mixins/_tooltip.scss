@@ -1,4 +1,4 @@
-@mixin tooltip($text-color: #fff, $bkg-color: #222, $max-width: 370px, $padding: 20px, $font) {
+@mixin tooltip($text-color: cl(color-white), $bkg-color: #222, $max-width: 370px, $padding: 20px, $font) {
   position: relative;
 
   // .tooltip__btn
@@ -7,7 +7,7 @@
     border: none;
     border-bottom: 1px dashed currentColor;
     padding: 0;
-    color: #000;
+    color: cl(color-black);
     background-color: transparent;
     cursor: pointer;
   }
@@ -22,7 +22,7 @@
     padding: $padding;
     width: max-content;
     max-width: $max-width;
-    box-shadow: 0 0 29px rgb(0 0 0 / 32%);
+    box-shadow: 0 0 29px cl(color-black);
     font: $font;
     color: $text-color;
     background: $bkg-color;

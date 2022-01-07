@@ -12,7 +12,7 @@
     left: 8px;
     display: inline-block;
     width: 16px;
-    background: #fff;
+    background: cl(color-white);
     animation: loading 1.2s $timing infinite;
 
     &:nth-child(1) {

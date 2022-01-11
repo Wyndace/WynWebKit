@@ -2,13 +2,12 @@ const scrollDisabling = (element, fixed = false, position) => {
   if (!element.classList.contains("_scroll-disabled") && !element.classList.contains("_scroll-disabled_horizontal") && !element.classList.contains("_scroll-disabled_vertical")) {
     if (fixed) {
       if (element == document.body) {
-        paddingOffset = innerWidth - document.body.offsetWidth + "px";
+        let paddingOffset = innerWidth - document.body.offsetWidth + "px";
         document.body.style.paddingRight = paddingOffset;
         if (scrollFixedElements.length > 0) {
           for (let index = 0; index < scrollFixedElements.length; index++) {
             const el = scrollFixedElements[index];
             el.style.paddingRight = paddingOffset;
-            scrollDisabling(el);
           }
         }
       }
@@ -27,13 +26,12 @@ const scrollEnabling = (element, fixed = false, position) => {
   if (element.classList.contains("_scroll-disabled") || element.classList.contains("_scroll-disabled_horizontal") || element.classList.contains("_scroll-disabled_vertical")) {
     if (fixed) {
       if (element == document.body) {
-        document.body.style.paddingRight = 0;
-        if (scrollFixedElements.length > 0) {
-          for (let index = 0; index < scrollFixedElements.length; index++) {
-            const el = scrollFixedElements[index];
-            el.style.paddingRight = 0;
-            scrollEnabling(el);
-          }
+        document.body.style.cssText = "";
+      }
+      if (scrollFixedElements.length > 0) {
+        for (let index = 0; index < scrollFixedElements.length; index++) {
+          const el = scrollFixedElements[index];
+          el.style.cssText = "";
         }
       }
     }

@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/Wyndace",
   "devDependencies": {
+    "es5-ext": "0.10.53",
     "browser-sync": "^2.27.4",
     "del": "^6.0.0",
     "gulp": "^4.0.2",

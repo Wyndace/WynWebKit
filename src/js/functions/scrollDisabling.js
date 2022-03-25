@@ -45,6 +45,11 @@ const scrollEnabling = (element, fixed = false, position) => {
   }
 };
 
+const toggleScroll = (element, fixed = false, position) => {
+  if (element.classList.contains("_scroll-disabled") || element.classList.contains("_scroll-disabled_horizontal") || element.classList.contains("_scroll-disabled_vertical")) scrollEnabling(element, fixed, position);
+  else scrollDisabling(element, fixed, position);
+};
+
 const scrollDisablers = document.querySelectorAll("[data-scroll_disable]");
 if (scrollDisablers.length > 0) {
   for (scrollDisabler of scrollDisablers) {

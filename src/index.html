@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
   @include('./html/mixins/_head.html', {'title': 'WynGulp'})
 </head>
 
-<body>
+<body style="color:#fbe0cd; background: #26a4ec;">
+  <div
+    style="position: absolute; top:0; left: 0; right: 0; bottom: 0; background: url('./resources/back.png') center center no-repeat; pointer-events: none;">
+  </div>
   <div class="site-container">
     <div style="padding: 15px">
-      <h1 style="margin:0; margin-bottom: 5px;">Hi, user! This page is needed to debug other pages, as well as
-        convenient to watch all Existing pages!</h1>
+      <h1 style="margin: 0 0 5px;">Hello, user! <br> This page is necessary for easy viewing of all
+        existing pages!</h1>
     </div>
     <main class="page">
-      <p style="margin: 0; margin-bottom: 5px; margin-left: 15px;">All pages:</p>
+      <p style="margin: 0 0 5px 15px;">All pages:</p>
       <ul style="margin: 0;">
         <li>
-          <a href="./page.html">Page</a>
+          <a style="color: #fbe0cd; text-decoration: underline;" href="./page.html">Page</a>
         </li>
       </ul>
     </main>

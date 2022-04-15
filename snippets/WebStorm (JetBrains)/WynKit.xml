@@ -1,0 +1,129 @@
+<templateSet group="WynKit">
+  <template name="del" value="// ====================================================================================================================================================================&#10;$END$" description="delimeter" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+  <template name="nav" value="&lt;nav class=&quot;nav&quot;&gt;&#10;    &lt;ul class=&quot;nav__list&quot;&gt;&#10;        &lt;li class=\&quot;nav__item\&quot;&gt;&lt;a href=\&quot;#\&quot; class=\&quot;nav__link\&quot;&gt;$1$&lt;/a&gt;&lt;/li&gt;&#10;        &lt;li class=\&quot;nav__item\&quot;&gt;&lt;a href=\&quot;#\&quot; class=\&quot;nav__link\&quot;&gt;$2$&lt;/a&gt;&lt;/li&gt;&#10;        &lt;li class=\&quot;nav__item\&quot;&gt;&lt;a href=\&quot;#\&quot; class=\&quot;nav__link\&quot;&gt;$3$&lt;/a&gt;&lt;/li&gt;&#10;    &lt;/ul&gt;&#10;&lt;/nav&gt;" description="based site navigation" toReformat="false" toShortenFQNames="true">
+    <variable name="1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="2" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="3" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template name="svg" value="&lt;svg class=&quot;$CLASS$&quot;&gt;&#10;    &lt;use xlink:href=&quot;./img/sprite.svg#$link$&quot;&gt;&lt;/use&gt;&#10;&lt;/svg&gt;" description="svg" toReformat="false" toShortenFQNames="true">
+    <variable name="CLASS" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="link" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template name="click" value="$item$.addEventListener(&quot;click&quot;, (e) =&gt; {&#10;    $END$&#10;});" description="js click" toReformat="false" toShortenFQNames="true">
+    <variable name="item" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="cdgi" value="const $var$ = $document$.getElementsById('$id$');" description="const getElementsById" toReformat="false" toShortenFQNames="true">
+    <variable name="var" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="id" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="dgi" value="$document$.getElementsById('$id$');" description="getElementsById" toReformat="false" toShortenFQNames="true">
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="id" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="cdgcn" value="const $var$ = $document$.getElementsByClassName('$class_name$');" description="const getElementsByClassName" toReformat="false" toShortenFQNames="true">
+    <variable name="var" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="class_name" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="dgcn" value="$document$.getElementsByClassName('$class_name$');" description="getElementsByClassName" toReformat="false" toShortenFQNames="true">
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="class_name" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="cdqs" value="const $var$ = $document$.querySelector('.$3$');" description="const querySelector" toReformat="false" toShortenFQNames="true">
+    <variable name="var" expression="firstWord(String)" defaultValue="" alwaysStopAt="true" />
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="3" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="cdqsd" value="const $var$ = $document$.querySelector('[data-$attr$]');" description="const document.querySelector with data attr" toReformat="false" toShortenFQNames="true">
+    <variable name="var" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="attr" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="dqsd" value="$document$.querySelector('[data-$attr$]');" description="document.querySelector with data attr" toReformat="false" toShortenFQNames="true">
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="attr" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="cdqsad" value="const $var$= $document$.querySelectorAll('[data-$attr$]');" description="const document.querySelectorAll with data attr" toReformat="false" toShortenFQNames="true">
+    <variable name="var" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="attr" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="dqsad" value="$document$.querySelectorAll('[data-$attr$]');" description="document.querySelectorAll with data attr" toReformat="false" toShortenFQNames="true">
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="attr" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="cdqsa" value="const $var$ = $document$.querySelectorAll('.$selector$');" description="const document.querySelectorAll" toReformat="false" toShortenFQNames="true">
+    <variable name="var" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="selector" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="dqsa" value="$document$.querySelectorAll('.$selector$');" description="document.querySelectorAll" toReformat="false" toShortenFQNames="true">
+    <variable name="document" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="selector" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="section" value="&lt;section class=&quot;page__$name$ $name$&quot; id=&quot;$name$&quot;&gt;&#10;    &lt;div class=&quot;$name$__container _container&quot;&gt;&#10;       $END$&#10;    &lt;/div&gt;&#10; &lt;/section&gt;" toReformat="false" toShortenFQNames="true">
+    <variable name="name" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template name="container" value="&lt;div class=&quot;$name$__container _container&quot;&gt;&#10;   $END$&#10;&lt;/div&gt;" toReformat="false" toShortenFQNames="true">
+    <variable name="name" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template name="burger" value="&lt;div class=&quot;$parent_class$__burger burger&quot; data-burger&gt;&#10;    &lt;button type=&quot;button&quot; data-burger_button class=&quot;burger__icon _btn-reset&quot;&gt;&#10;        &lt;span&gt;&lt;/span&gt;&#10;    &lt;/button&gt;&#10;    &lt;ul class=&quot;burger__menu menu-burger _list-reset&quot; data-burger_body&gt;&#10;        &lt;div class=&quot;menu-burger__body&quot;&gt;&#10;        $END$&#10;        &lt;/div&gt;&#10;    &lt;/ul&gt;&#10;&lt;/div&gt;" toReformat="false" toShortenFQNames="true">
+    <variable name="parent_class" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+</templateSet>

@@ -1,5 +1,5 @@
 const modalClose = (modal, enableScroll = true) => {
-  modal.classList.add("_hidden");
+  modal.classList.remove("_active");
   if (enableScroll) {
     scrollEnabling(document.querySelector("body"), true);
   }
@@ -8,13 +8,13 @@ const modalClose = (modal, enableScroll = true) => {
 const modalOpen = (modal) => {
   if (modal) {
     const activeModal = document.querySelector("[data-modal-window]");
-    if (activeModal && !activeModal.classList.contains("_hidden")) {
+    if (activeModal && activeModal.classList.contains("_active")) {
       modalClose(activeModal, false);
     } else {
       scrollDisabling(document.querySelector("body"), true);
     }
   }
-  modal.classList.remove("_hidden");
+  modal.classList.add("_active");
   modal.addEventListener("click", function (e) {
     if (!e.target.closest("[data-modal-window_area]")) {
       modalClose(e.target.closest("[data-modal-window]"));
@@ -26,8 +26,8 @@ const modalWindows = document.querySelectorAll("[data-modal-window]");
 if (modalWindows.length > 0) {
   for (let index = 0; index < modalWindows.length; index++) {
     const modalWindow = modalWindows[index];
-    if (!modalWindow.classList.contains("_hidden")) {
-      modalWindow.classList.add("_hidden");
+    if (modalWindow.classList.contains("_active")) {
+      scrollDisabling(document.querySelector("body"), true);
     }
   }
 }
@@ -50,9 +50,9 @@ if (modalClosingItems.length > 0) {
   for (let index = 0; index < modalClosingItems.length; index++) {
     const modalClosingItem = modalClosingItems[index];
     modalClosingItem.addEventListener("click", function (e) {
+      e.preventDefault();
       console.log(modalClosingItem.closest("[data-modal-window]"));
       modalClose(modalClosingItem.closest("[data-modal-window]"));
-      e.preventDefault();
     });
   }
 }

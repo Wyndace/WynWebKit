@@ -1,7 +1,12 @@
+@use "sass:color";
+
 .close {
-  position: relative;
+  position: absolute;
+  right: 20px;
+  top: 40px;
   display: block;
-  width: 100%;
+  width: 24px;
+  height: 24px;
 
   // close::before,
   // close::after
@@ -10,10 +15,11 @@
     content: "";
     position: absolute;
     right: 0;
-    top: 0;
-    width: 2px;
-    height: 15px;
-    background-color: #000;
+    bottom: 50%;
+    width: 24px;
+    height: 2px;
+    background-color: cl(color-black);
+    transform: translateY(-50%);
     transition: background-color 0.1s ease-in-out;
   }
 
@@ -29,6 +35,6 @@
 
   &:hover.close::before,
   &:hover.close::after {
-    background-color: #4e4b4b;
+    background-color: cl(color-black, 0.8);
   }
 }

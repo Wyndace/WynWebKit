@@ -1,109 +1,49 @@
-// Here are the main styles for all pages.
+// === Sass imports ===================================================================================================================================================
+
+@use "sass:math";
 
 // ====================================================================================================================================================================
 
-html {
-  box-sizing: border-box;
-}
+// === Settings =======================================================================================================================================================
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
+// ==== Font Settings =================================================================================================================================================
 
-body {
-  margin: 0;
-  font-family: cl(font-family);
-  background-color: cl(color-white);
-}
+$font-base-size: 16;
+$font-family: "Arial";
 
-img {
-  max-width: 100%;
-}
+// ====================================================================================================================================================================
 
-a {
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
+// ==== Site Settings =================================================================================================================================================
 
-._link-reset {
-  text-decoration: none;
-  color: inherit;
-  -webkit-tap-highlight-color: transparent;
-}
+$container-size: 1090px;
+$safe-padding: 15px;
+$background: rgb(var(--color-white));
+$template-size: 1440px;
 
-._list-reset {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+// ====================================================================================================================================================================
 
-._is-outer {
-  position: relative !important; // stylelint-disable-line declaration-no-important
-  left: -9999px !important; // stylelint-disable-line declaration-no-important
-}
+// ==== Adaptive Settings ==============================================================================================================================================
 
-.site-container {
-  overflow: hidden;
-}
+$xxs: 320px;
+$xs: 375px;
+$sm: 425px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xxl: 1440px;
 
-._is-hidden {
-  display: none !important; // stylelint-disable-line declaration-no-important
-}
+// ====================================================================================================================================================================
 
-._for-mobile {
-  display: none;
-}
+// === functions are connected here. ==================================================================================================================================
 
-._error {
-  border: 2px #ff4019 solid !important; // stylelint-disable-line declaration-no-important
-}
+@import "functions";
 
-._btn-reset {
-  border: none;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-  background: transparent;
-  cursor: pointer;
-  user-select: none;
-  -webkit-touch-callout: none;
-}
+// ====================================================================================================================================================================
 
-._hidden {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
+// === Mixins are connected here. =====================================================================================================================================
 
-._container {
-  margin: 0 auto;
-  padding: 0 15px;
-  max-width: 1200px;
-}
+@import "mixins";
 
-.js-focus-visible :focus:not(.focus-visible) {
-  outline: none;
-}
+// ====================================================================================================================================================================
 
-._scroll-disabled {
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-
-  &_horizontal {
-    overflow-x: hidden;
-    width: 100vw;
-  }
-
-  &_vertical {
-    overflow-y: hidden;
-    height: 100vh;
-  }
-}
-
-// ========================================================================================================================================================================
+// ====================================================================================================================================================================

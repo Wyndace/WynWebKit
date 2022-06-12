@@ -44,6 +44,7 @@
 
   &__logo {
     color: cl(color-white);
+    transition: color 0.1s ease 0s;
   }
 
   // .header__nav
@@ -59,7 +60,15 @@
   &._scroll {
     .header__body {
       padding: 0;
-      background-color: cl(color-black);
+      background-color: cl(color-sand);
+    }
+
+    .header__logo {
+      color: cl(color-black);
+    }
+
+    .nav__item {
+      color: cl(color-black);
     }
   }
 }

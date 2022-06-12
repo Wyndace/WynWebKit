@@ -1,0 +1,21 @@
+.nav {
+  // .nav__list
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  // .nav__item
+  &__item {
+    display: inline-block;
+    padding: 15px 30px;
+    font: cl(font-base);
+    color: cl(color-white);
+    background-color: transparent;
+  }
+
+  // .nav__link
+  &__link {
+  }
+}

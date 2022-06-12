@@ -1,0 +1,17 @@
+.modal-iframe {
+  .modal-window__content {
+    max-width: 90vw;
+    max-height: 80vh;
+  }
+
+  .close {
+    top: 10px;
+  }
+
+  // .modal-iframe__iframe
+  &__iframe {
+    border: none;
+    width: 90vw;
+    height: 80vh;
+  }
+}

@@ -1,12 +1,11 @@
-// Mixins are stored here - ready-made pieces of codes
+// Mixins are stored here (ready-made pieces of codes)
 
 // ====================================================================================================================================================================
 
-@import "./mixins/font-face";
-@import "./mixins/burger";
-@import "./mixins/checkbox";
-@import "./mixins/tooltip";
-@import "./mixins/loading";
-@import "./mixins/spoiler";
+@forward "./mixins/font-face";
+@forward "./mixins/checkbox";
+@forward "./mixins/tooltip";
+@forward "./mixins/loading";
+@forward "./mixins/spoiler";
 
 // ====================================================================================================================================================================

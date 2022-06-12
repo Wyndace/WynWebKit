@@ -1,0 +1,44 @@
+// Here are the main styles for all pages.
+
+// ====================================================================================================================================================================
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: $background;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+.site-container {
+  overflow: hidden;
+}
+
+.logo {
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+}
+
+// ========================================================================================================================================================================

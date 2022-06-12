@@ -4,8 +4,10 @@
 
 :root {
   // Colors
-  --color-black: #{hextorgb(#000)};
-  --color-white: #{hextorgb(#fff)};
+  --color-black: #{hex-to-rgb(#000)};
+  --color-white: #{hex-to-rgb(#fff)};
+  --color-blue: #{hex-to-rgb(#047fc2)};
+  --color-error: #{hex-to-rgb(#ef1e45)};
 
   // Indents
   --section-offset: 60px;
@@ -14,12 +16,11 @@
   --border-radius: 4px;
 
   // Fonts
-  --font-family: sans-serif;
+  --font-family: #{$font-family}, sans-serif;
 
   // Typefaces
-  --large-bold-font: 700 30px / 140% var(--font-family);
-  --middle-bold-font: 700 20px / 140% var(--font-family);
-  --medium-bold-font: 700 24px / 140% var(--font-family);
+  --font-base: 400 #{fluid-value(16px, 18px, $xxs, $template-size)} / 140% #{cl(font-family)};
+  --font-bold: 700 #{fluid-value(22, 24)} / 140% #{cl(font-family)};
 }
 
 // ====================================================================================================================================================================

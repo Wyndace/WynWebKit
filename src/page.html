@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  @include('./html/mixins/_head.html', {'title': 'WynGulp | Page'})
+  @include('./html/mixins/_head.html', {'title': 'WynGulp | Page', 'style': 'main'})
 </head>
 
 <body>
@@ -13,7 +13,8 @@
     </main>
     @include('./html/sections/footer.html')
   </div>
-  @include('./html/mixins/_scripts.html')
+<!--  @includ('./html/components/modal windows/modal-hello.html')-->
+  @include('./html/mixins/_scripts.html', {'script': 'main'})
 </body>
 
 </html>

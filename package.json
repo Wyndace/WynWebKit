@@ -1,5 +1,5 @@
 {
-  "name": "wyngulp",
+  "name": "WynWebKit",
   "version": "1.5.0-beta.9",
   "description": "My Build of Gulp for weblayout",
   "main": "gulpfile.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wyndace/WynGulp.git"
+    "url": "git+https://github.com/Wyndace/WynWebKit.git"
   },
   "keywords": [
     "template",
@@ -18,13 +18,13 @@
     "js",
     "html",
     "css",
-    "wyngulp",
+    "WynWebKit",
     "weblayouts"
   ],
   "author": "Wyndace (Vasilev Alexander)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Wyndace/WynGulp/issues"
+    "url": "https://github.com/Wyndace/WynWebKit/issues"
   },
   "homepage": "https://github.com/Wyndace",
   "devDependencies": {

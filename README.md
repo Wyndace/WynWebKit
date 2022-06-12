@@ -1,3 +1,3 @@
-# WynGulp
+# WynWebKit - Wyndace's Web Development Kit
 
-Enjoi this ;)
+Enjoy this ;)

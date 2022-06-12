@@ -1,0 +1,115 @@
+.form {
+  // .form__sending
+  &__sending {
+  }
+
+  // .form__body
+  &__body {
+
+  }
+
+  // .form__title
+  &__title {
+  }
+
+  // .form__fields
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  // .form__item
+  &__item {
+    position: relative;
+    font: cl(font-base);
+    color: cl(color-black);
+  }
+
+  // .form__label
+  &__label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    display: flex;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    transform: translateY(-50%);
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+  }
+
+  // .form__textarea
+  &__textarea {
+    min-width: 100%;
+    min-height: 70px;
+    max-width: 100%;
+    resize: none;
+  }
+
+  // .form__btn
+  &__btn {
+    min-height: 50px;
+  }
+
+  .form__checkbox {
+  }
+
+  &__textarea ~ &__label {
+    top: 10px;
+    transform: translateY(2.5px);
+  }
+
+  &__textarea:focus ~ &__label,
+  &__textarea:not(:placeholder-shown) ~ &__label {
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__input,
+  &__textarea {
+    appearance: none;
+    display: block;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    height: 50px;
+    font: inherit;
+    color: inherit;
+
+    &::placeholder {
+      color: transparent;
+      pointer-events: none;
+    }
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      outline: 0;
+    }
+  }
+
+  &__input._error,
+  &__textarea._error {
+    border: 2px currentColor solid;
+    color: cl(color-error);
+  }
+
+  [data-form_require] ~ &__label::after {
+    content: "*";
+  }
+
+  &__input._error ~ &__label,
+  &__textarea._error ~ &__label {
+    color: inherit;
+  }
+
+  &__input:focus ~ &__label,
+  &__input:not(:placeholder-shown) ~ &__label {
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+}

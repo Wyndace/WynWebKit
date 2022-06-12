@@ -10,7 +10,7 @@ const googleTranslateConfig = {
   lang: "ru",
   /* The language we translate into on the first visit*/
   /* Язык, на который переводим при первом посещении */
-  langFirstVisit: "ua",
+  langFirstVisit: "ru",
   /* Если скрипт не работает на поддомене, 
     раскомментируйте и
     укажите основной домен в свойстве domain */
@@ -27,7 +27,11 @@ function TranslateInit() {
   // Находим флаг с выбранным языком для перевода и добавляем к нему активный класс
   if (document.querySelector('[data-google-lang="' + code + '"]') !== null) {
     document.querySelector('[data-google-lang="' + code + '"]').setAttribute("data-lang-active", "true");
-    selectLangIniter(document.querySelector('[data-google-lang="' + code + '"]'));
+    try {
+      selectLangIniter(document.querySelector('[data-google-lang="' + code + '"]'));
+    } catch (e) {
+      console.log('[Google Translator] Подключите selectLangTranslator, чтобы появились селекты-переводчики')
+    }
   }
 
   if (code == googleTranslateConfig.lang) {
@@ -81,16 +85,11 @@ function TranslateEventHandler(event, selector, handler) {
 }
 
 // Убираем гугловские всплывашки
+document.body.insertAdjacentHTML("afterbegin", "<style>.goog-text-highlight{box-shadow:none!important;background:none!important}.skiptranslate{position:absolute!important;left:0!important;top:0!important;overflow:hidden;border:0!important;padding:0!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;clip:rect(1px,1px,1px,1px)!important}</style>");
 let interval = setInterval(() => {
   document.querySelector("body").removeAttribute("style");
-  if (document.querySelector(".goog-text-highlight")) {
-    document.querySelector(".goog-text-highlight").classList.add("_hidden");
-  }
   if (document.querySelector(".goog-te-banner-frame.skiptranslate")) {
-    document.querySelectorAll(".goog-te-banner-frame.skiptranslate").forEach((el) => {
-      el.classList.add("_hidden");
-    });
     clearInterval(interval);
   }
 }, 100);
-//dsd
+

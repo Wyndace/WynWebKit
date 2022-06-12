@@ -34,7 +34,7 @@ if (selects.length > 0) {
               if (elClass != "") newClass.push("custom-select-lang" + elClass[0]);
             });
             newClass.forEach((elClass) => {
-              if (elClass == "custom-select-lang-panel") needy.setAttribute("data-da", ".menu-burger__body, 801, 3");
+              // if (elClass == "custom-select-lang-panel") needy.setAttribute("data-da", ".menu-burger__body, 768, last");
               needy.classList.add(elClass);
             });
           });

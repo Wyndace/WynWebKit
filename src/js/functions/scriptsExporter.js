@@ -11,3 +11,4 @@ export { default as smoothScrollTo } from "./smoothScrollTo.js";
 export { default as spoilerCreator } from "./spoilerCreator.js";
 export { default as surveySlide } from "./surveySlide.js";
 export { default as tabsCreator } from "./tabsCreator.js";
+export { default as dynamicAdapt } from "../vendor/dynamicAdapt.min.js"

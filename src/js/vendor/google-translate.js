@@ -5,6 +5,8 @@
  * edited: Alexander Vasilev https://github.com/Wyndace
  *****************************************************/
 
+import {selectLangIniter} from "../functions/selectLangTranslator.js";
+
 const googleTranslateConfig = {
   /* Original language */
   lang: "ru",
@@ -27,14 +29,10 @@ function TranslateInit() {
   // Находим флаг с выбранным языком для перевода и добавляем к нему активный класс
   if (document.querySelector('[data-google-lang="' + code + '"]') !== null) {
     document.querySelector('[data-google-lang="' + code + '"]').setAttribute("data-lang-active", "true");
-    try {
-      selectLangIniter(document.querySelector('[data-google-lang="' + code + '"]'));
-    } catch (e) {
-      console.log('[Google Translator] Подключите selectLangTranslator, чтобы появились селекты-переводчики')
-    }
+    selectLangIniter(document.querySelector('[data-google-lang="' + code + '"]'));
   }
 
-  if (code == googleTranslateConfig.lang) {
+  if (code === googleTranslateConfig.lang) {
     // Если язык по умолчанию, совпадает с языком на который переводим
     // То очищаем куки
     TranslateCookieHandler(null, googleTranslateConfig.domain);
@@ -55,7 +53,7 @@ function TranslateInit() {
 
 function TranslateGetCode() {
   // Если куки нет, то передаем дефолтный язык
-  let lang = Cookies.get("googtrans") != undefined && Cookies.get("googtrans") != "null" ? Cookies.get("googtrans") : googleTranslateConfig.lang;
+  let lang = Cookies.get("googtrans") !== undefined && Cookies.get("googtrans") !== "null" ? Cookies.get("googtrans") : googleTranslateConfig.lang;
   return lang.match(/(?!^\/)[^\/]*$/gm)[0];
 }
 
@@ -66,7 +64,7 @@ function TranslateCookieHandler(val, domain) {
     domain: "." + document.domain,
   });
 
-  if (domain == "undefined") return;
+  if (domain === "undefined") return;
   // записываем куки для домена, если он назначен в конфиге
   Cookies.set("googtrans", val, {
     domain: domain,

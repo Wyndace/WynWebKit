@@ -1,20 +1,23 @@
-const createMatch = (string, regex) => {
+export const createMatch = (string, regex) => {
   return regex.test(string);
 };
 
-const parseBoolean = (value) => {
+export const changeMatch = (oldString, newString, regex) => {
+  return oldString.replace(regex, newString);
+}
+
+export const parseBoolean = (value) => {
   if (typeof value === "string") {
     value = value.replace(/^\s+|\s+$/g, "").toLowerCase();
     if (value === "true" || value === "false") return value === "true";
   }
-  return;
 };
 
-const sleep = (ms) => {
+export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-const moveAttributes = (from, to, deleteFrom = false) => {
+export const moveAttributes = (from, to, deleteFrom = false) => {
   for (let index = 0; index < from.attributes.length; index++) {
     const attr = from.attributes.item(index);
     to.setAttribute(attr.name, attr.value);

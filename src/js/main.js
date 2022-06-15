@@ -1,6 +1,10 @@
 // === JS for index.html =========================================================================================================================================
 
-fileInclude.include("./components/ex.js");
+import sum from "./components/ex.js"
+import {tapAnimation} from "./functions/_animation.js";
+
+console.log(sum(2, 10))
+
 
 // ==== Button Tap animation ======================================================================================================================================
 

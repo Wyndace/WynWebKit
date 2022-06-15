@@ -1,9 +1,10 @@
-const scrollDisabling = (element, fixed = false, position) => {
+export const scrollDisabling = (element, fixed = false, position) => {
   if (!element.classList.contains("_scroll-disabled") && !element.classList.contains("_scroll-disabled_horizontal") && !element.classList.contains("_scroll-disabled_vertical")) {
     if (fixed) {
-      if (element == document.body) {
+      if (element === document.body) {
         let paddingOffset = innerWidth - document.body.offsetWidth + "px";
         document.body.style.paddingRight = paddingOffset;
+        const scrollFixedElements = document.querySelectorAll("[data-scroll-fixed]");
         if (scrollFixedElements.length > 0) {
           for (let index = 0; index < scrollFixedElements.length; index++) {
             const el = scrollFixedElements[index];
@@ -12,9 +13,9 @@ const scrollDisabling = (element, fixed = false, position) => {
         }
       }
     }
-    if (position == "vertical") {
+    if (position === "vertical") {
       element.classList.add("_scroll-disabled_vertical");
-    } else if (position == "horizontal") {
+    } else if (position === "horizontal") {
       element.classList.add("_scroll-disabled_horizontal");
     } else {
       element.classList.add("_scroll-disabled");
@@ -22,12 +23,13 @@ const scrollDisabling = (element, fixed = false, position) => {
   }
 };
 
-const scrollEnabling = (element, fixed = false, position) => {
+export const scrollEnabling = (element, fixed = false, position) => {
   if (element.classList.contains("_scroll-disabled") || element.classList.contains("_scroll-disabled_horizontal") || element.classList.contains("_scroll-disabled_vertical")) {
     if (fixed) {
-      if (element == document.body) {
+      if (element === document.body) {
         document.body.style.cssText = "";
       }
+      const scrollFixedElements = document.querySelectorAll("[data-scroll-fixed]");
       if (scrollFixedElements.length > 0) {
         for (let index = 0; index < scrollFixedElements.length; index++) {
           const el = scrollFixedElements[index];
@@ -35,9 +37,9 @@ const scrollEnabling = (element, fixed = false, position) => {
         }
       }
     }
-    if (position == "vertical") {
+    if (position === "vertical") {
       element.classList.remove("_scroll-disabled_vertical");
-    } else if (position == "horizontal") {
+    } else if (position === "horizontal") {
       element.classList.remove("_scroll-disabled_horizontal");
     } else {
       element.classList.remove("_scroll-disabled");
@@ -45,17 +47,17 @@ const scrollEnabling = (element, fixed = false, position) => {
   }
 };
 
-const toggleScroll = (element, fixed = false, position) => {
-  if (element.classList.contains("_scroll-disabled") || element.classList.contains("_scroll-disabled_horizontal") || element.classList.contains("_scroll-disabled_vertical")) scrollEnabling(element, fixed, position);
-  else scrollDisabling(element, fixed, position);
-};
 
-const scrollDisablers = document.querySelectorAll("[data-scroll_disable]");
-if (scrollDisablers.length > 0) {
-  for (scrollDisabler of scrollDisablers) {
-    positon = scrollDisabler.dataset.scroll_disable;
-    scrollDisabling(scrollDisabler, positon);
+export const toggleScroll = (element, fixed = false, position) => {
+    if (element.classList.contains("_scroll-disabled") || element.classList.contains("_scroll-disabled_horizontal") || element.classList.contains("_scroll-disabled_vertical")) scrollEnabling(element, fixed, position);
+    else scrollDisabling(element, fixed, position);
+  };
+export default () => {
+  const scrollDisablers = document.querySelectorAll("[data-scroll_disable]");
+  if (scrollDisablers.length > 0) {
+    for (let scrollDisabler of scrollDisablers) {
+      let positon = scrollDisabler.dataset.scroll_disable;
+      scrollDisabling(scrollDisabler, positon);
+    }
   }
 }
-
-const scrollFixedElements = document.querySelectorAll("[data-scroll-fixed]");

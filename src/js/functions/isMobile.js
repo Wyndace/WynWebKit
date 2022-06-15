@@ -1,26 +1,28 @@
+import {createMatch} from "./_functions.js";
+
 const appleIphone = /iPhone/i;
 const appleIpod = /iPod/i;
 const appleTablet = /iPad/i;
-const appleUniversal = /\biOS-universal(?:.+)Mac\b/i;
-const androidPhone = /\bAndroid(?:.+)Mobile\b/i; // Match 'Android' AND 'Mobile'
+const appleUniversal = /\biOS-universal.+Mac\b/i;
+const androidPhone = /\bAndroid.+Mobile\b/i; // Match 'Android' AND 'Mobile'
 const androidTablet = /Android/i;
-const amazonPhone = /(?:SD4930UR|\bSilk(?:.+)Mobile\b)/i; // Match 'Silk' AND 'Mobile'
+const amazonPhone = /SD4930UR|\bSilk.+Mobile\b/i; // Match 'Silk' AND 'Mobile'
 const amazonTablet = /Silk/i;
 const windowsPhone = /Windows Phone/i;
-const windowsTablet = /\bWindows(?:.+)ARM\b/i; // Match 'Windows' AND 'ARM'
+const windowsTablet = /\bWindows.+ARM\b/i; // Match 'Windows' AND 'ARM'
 const otherBlackBerry = /BlackBerry/i;
 const otherBlackBerry10 = /BB10/i;
 const otherOpera = /Opera Mini/i;
-const otherChrome = /\b(CriOS|Chrome)(?:.+)Mobile/i;
-const otherFirefox = /Mobile(?:.+)Firefox\b/i; // Match 'Mobile' AND 'Firefox'
+const otherChrome = /\b(CriOS|Chrome).+Mobile/i;
+const otherFirefox = /Mobile.+Firefox\b/i; // Match 'Mobile' AND 'Firefox'
 
 const isAppleTabletOnIos13 = (nav) => {
-  return typeof nav !== "undefined" && nav.platform === "MacIntel" && typeof nav.maxTouchPoints === "number" && nav.maxTouchPoints > 1 && typeof MSStream === "undefined";
+  return typeof nav !== "undefined" && nav.platform === "MacIntel" && typeof nav.maxTouchPoints === "number" && nav.maxTouchPoints > 1;
 };
 
 const nav = {
   UserAgent: navigator.userAgent,
-  platform: navigator.platform || navigator.vendor,
+  platform: navigator.vendor,
   maxTouchPoints: navigator.maxTouchPoints,
 };
 
@@ -63,3 +65,5 @@ const isMobile = {
 isMobile.any = isMobile.apple.device || isMobile.android.device || isMobile.windows.device || isMobile.other.device;
 isMobile.phone = isMobile.apple.phone || isMobile.android.phone || isMobile.windows.phone;
 isMobile.tablet = isMobile.apple.tablet || isMobile.android.tablet || isMobile.windows.tablet;
+
+export default isMobile;

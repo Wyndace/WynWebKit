@@ -1,6 +1,6 @@
 // ==== All ease animations are stored here ===============================================================================================================================
 
-const easeOutQuart = (t, b, c, d) => {
+export const easeOutQuart = (t, b, c, d) => {
   return -c * ((t = t / d - 1) * t * t * t - 1) + b;
 };
 
@@ -8,7 +8,7 @@ const easeOutQuart = (t, b, c, d) => {
 
 // ==== Плавная прокрутка =================================================================================================================================================
 
-const smoothScrollAnimation = (currentTime, distance, duration, startTime, startPositon) => {
+export const smoothScrollAnimation = (currentTime, distance, duration, startTime, startPositon) => {
   if (startTime === null) startTime = currentTime;
   let timeElapsed = currentTime - startTime;
   let run = easeOutQuart(timeElapsed, startPositon, distance, duration);
@@ -21,7 +21,7 @@ const smoothScrollAnimation = (currentTime, distance, duration, startTime, start
 
 // ==== Скольжение вверх и вниз ===========================================================================================================================================
 
-let _slideUp = (target, duration = 500) => {
+export const _slideUp = (target, duration = 500) => {
   if (!target.classList.contains("_slide")) {
     target.classList.add("_slide");
     target.style.transitionProperty = "height, margin, padding";
@@ -48,7 +48,7 @@ let _slideUp = (target, duration = 500) => {
     }, duration);
   }
 };
-let _slideDown = (target, duration = 500) => {
+export const _slideDown = (target, duration = 500) => {
   if (!target.classList.contains("_slide")) {
     target.classList.add("_slide");
     if (target.hidden) {
@@ -78,7 +78,7 @@ let _slideDown = (target, duration = 500) => {
     }, duration);
   }
 };
-let _slideToggle = (target, duration = 500) => {
+export const _slideToggle = (target, duration = 500) => {
   if (target.hidden) {
     return _slideDown(target, duration);
   } else {
@@ -88,7 +88,7 @@ let _slideToggle = (target, duration = 500) => {
 
 // ==== Анимация нажатия ===================================================================================================================================================
 
-const tapAnimation = (element, ms = 300, tappedClass = '_tapped',) => {
+export const tapAnimation = (element, ms = 300, tappedClass = '_tapped',) => {
   element.classList.add(tappedClass);
   setTimeout(() => {element.classList.remove(tappedClass)}, ms);
 };

@@ -1,9 +1,7 @@
+import {changeMatch, createMatch} from "./_functions.js";
+
 const validatePhone = (input) => {
-  if (input.value.replace(/\D/g, "") == "" || input.value.replace(/\D/g, "").length < 10) {
-    return false;
-  } else {
-    return true;
-  }
+  return !(changeMatch(input.value, "", /\D/g) === "" || changeMatch(input.value, "", /\D/g).length < 10);
 };
 
 const formAddError = (input) => {
@@ -16,11 +14,11 @@ const formRemoveError = (input) => {
   input.classList.remove("_error");
 };
 
-const formValidate = (form) => {
+export const formValidate = (form) => {
   let error = 0;
-  const formReqiers = form.querySelectorAll("[data-form_require]");
-  for (let index = 0; index < formReqiers.length; index++) {
-    const input = formReqiers[index];
+  const formRequires = form.querySelectorAll("[data-form_require]");
+  for (let index = 0; index < formRequires.length; index++) {
+    const input = formRequires[index];
     formRemoveError(input);
     if (input.dataset.form_input_email != null) {
       if (!createMatch(input.value, /\S+@\S+\.\S+/)) {
@@ -45,45 +43,48 @@ const formValidate = (form) => {
 
   return error;
 };
-const forms = document.querySelectorAll("[data-form]");
-if (forms.length > 0) {
-  forms.forEach((form) => {
-    async function formSend(e) {
-      e.preventDefault();
-      let error = formValidate(form);
-      if (form.hasAttribute("data-survey")) {
-        error = 0;
-      }
-      if (error === 0) {
-        form.classList.add("_sending");
-        if (form.dataset.test == null) {
 
-          /*
-            This is a backend part!!! If you do not add an attribute [data-test] or not to make a real empting of the letter, then will give an error and nothing happens 
-          */
+export default () => {
+  const forms = document.querySelectorAll("[data-form]");
+  if (forms.length > 0) {
+    forms.forEach((form) => {
+      async function formSend(e) {
+        e.preventDefault();
+        let error = formValidate(form);
+        if (form.hasAttribute("data-survey")) {
+          error = 0;
+        }
+        if (error === 0) {
+          form.classList.add("_sending");
+          if (form.dataset.test == null) {
 
-          let responce = await fetch(mail.php);
+            /*
+              This is a backend part!!! If you do not add an attribute [data-test] or not to make a real empting of the letter, then will give an error and nothing happens
+            */
 
-          if (responce.ok) {
-            let result = responce.json;
+            let response = await fetch(mail.php);
+
+            if (response.ok) {
+              let result = response.json;
+              alert(result.message);
+              form.reset();
+            } else {
+              alert("Something went wrong...");
+            }
+          } else {
+            let result = {
+              message: "All OK :Р",
+            };
             alert(result.message);
             form.reset();
-          } else {
-            alert("Something went wrong...");
           }
+          form.classList.remove("_sending");
         } else {
-          let result = {
-            message: "All OK :Р",
-          };
-          alert(result.message);
-          form.reset();
+          alert("Fill the all fields!");
         }
-        form.classList.remove("_sending");
-      } else {
-        alert("Fill the all fields!");
       }
-    }
 
-    form.addEventListener("submit", formSend);
-  });
+      form.addEventListener("submit", formSend);
+    });
+  }
 }

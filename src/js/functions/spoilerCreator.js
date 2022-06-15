@@ -1,3 +1,5 @@
+import {_slideToggle, _slideUp} from "./_animation.js";
+
 const initSpoilerBody = (spoilersBlock, hideSpoilerBody = true) => {
   const spoilerTitles = spoilersBlock.querySelectorAll("[data-spoiler]");
   if (spoilerTitles.length > 0) {
@@ -20,7 +22,7 @@ const setSpoilerAction = (e) => {
   if (el.hasAttribute("data-spoiler") || el.closest("[data-spoiler]")) {
     const spoilerTitle = el.hasAttribute("data-spoiler") ? el : el.closest("[data-spoiler]");
     const spoilersBlock = spoilerTitle.closest("[data-spoilers]");
-    const oneSpoiler = spoilersBlock.hasAttribute("data-one-spoiler") ? true : false;
+    const oneSpoiler = spoilersBlock.hasAttribute("data-one-spoiler");
     if (!spoilersBlock.querySelectorAll("._slide").length) {
       if (oneSpoiler && !spoilerTitle.classList.contains("_active")) {
         hideSpoilersBody(spoilersBlock);
@@ -53,56 +55,57 @@ const initSpoilers = (spoilersArray, matchMedia = false) => {
     }
   });
 };
-
-const spoilersArray = document.querySelectorAll("[data-spoilers]");
-if (spoilersArray.length > 0) {
-  const spoilersRegular = Array.from(spoilersArray).filter((item) => {
-    return !item.dataset.spoilers;
-  });
-
-  if (spoilersRegular.length > 0) {
-    initSpoilers(spoilersRegular);
-  }
-
-  const spoilersMedia = Array.from(spoilersArray).filter((item) => {
-    return item.dataset.spoilers;
-  });
-
-  if (spoilersMedia.length > 0) {
-    const breakpointsArray = [];
-    spoilersMedia.forEach((item) => {
-      const params = item.dataset.spoilers;
-      const breakpoint = {};
-      const paramsArray = params.split(", ");
-      breakpoint.value = paramsArray[0];
-      breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : "max";
-      breakpoint.item = item;
-      breakpointsArray.push(breakpoint);
+export default () => {
+  const spoilersArray = document.querySelectorAll("[data-spoilers]");
+  if (spoilersArray.length > 0) {
+    const spoilersRegular = Array.from(spoilersArray).filter((item) => {
+      return !item.dataset.spoilers;
     });
 
-    let mediaQuaries = breakpointsArray.map((item) => {
-      return `(${item.type}-width: ${item.value}px), ${item.value}, ${item.type}`;
+    if (spoilersRegular.length > 0) {
+      initSpoilers(spoilersRegular);
+    }
+
+    const spoilersMedia = Array.from(spoilersArray).filter((item) => {
+      return item.dataset.spoilers;
     });
 
-    mediaQuaries = mediaQuaries.filter((item, index, self) => {
-      return self.indexOf(item) === index;
-    });
-
-    mediaQuaries.forEach((breakpoint) => {
-      const paramsArray = breakpoint.split(", ");
-      const mediaBreakpoint = paramsArray[1];
-      const mediaType = paramsArray[2];
-      const matchMedia = window.matchMedia(paramsArray[0]);
-
-      const spoilersArray = breakpointsArray.filter((item) => {
-        if (item.value === mediaBreakpoint && item.type === mediaType) {
-          return true;
-        }
+    if (spoilersMedia.length > 0) {
+      const breakpointsArray = [];
+      spoilersMedia.forEach((item) => {
+        const params = item.dataset.spoilers;
+        const breakpoint = {};
+        const paramsArray = params.split(", ");
+        breakpoint.value = paramsArray[0];
+        breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : "max";
+        breakpoint.item = item;
+        breakpointsArray.push(breakpoint);
       });
-      matchMedia.addListener(() => {
+
+      let mediaQuarries = breakpointsArray.map((item) => {
+        return `(${item.type}-width: ${item.value}px), ${item.value}, ${item.type}`;
+      });
+
+      mediaQuarries = mediaQuarries.filter((item, index, self) => {
+        return self.indexOf(item) === index;
+      });
+
+      mediaQuarries.forEach((breakpoint) => {
+        const paramsArray = breakpoint.split(", ");
+        const mediaBreakpoint = paramsArray[1];
+        const mediaType = paramsArray[2];
+        const matchMedia = window.matchMedia(paramsArray[0]);
+
+        const spoilersArray = breakpointsArray.filter((item) => {
+          if (item.value === mediaBreakpoint && item.type === mediaType) {
+            return true;
+          }
+        });
+        matchMedia.addListener(() => {
+          initSpoilers(spoilersArray, matchMedia);
+        });
         initSpoilers(spoilersArray, matchMedia);
       });
-      initSpoilers(spoilersArray, matchMedia);
-    });
+    }
   }
 }

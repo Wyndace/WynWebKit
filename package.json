@@ -5,11 +5,20 @@
   "main": "gulpfile.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp",
+    "build": "gulp --production"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Wyndace/WynWebKit.git"
+  },
+  "browserslist": [
+    "last 3 versions and not ie 11 and not dead"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "keywords": [
     "template",
@@ -19,7 +28,7 @@
     "js",
     "html",
     "css",
-    "WynWebKit",
+    "wynwebkit",
     "weblayouts"
   ],
   "author": "Wyndace (Vasilev Alexander)",
@@ -28,4 +37,44 @@
     "url": "https://github.com/Wyndace/WynWebKit/issues"
   },
   "homepage": "https://github.com/Wyndace/WynWebKit#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "browser-sync": "^2.27.10",
+    "del": "^6.1.1",
+    "es5-ext": "0.10.53",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-csso": "^4.0.1",
+    "gulp-file-include": "^2.3.0",
+    "gulp-fonter": "^0.3.0",
+    "gulp-fonter-fix": "^0.0.1",
+    "gulp-group-css-media-queries": "^1.2.2",
+    "gulp-html-img-wrapper": "^3.0.4",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-real-favicon": "^0.3.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-size": "^4.0.1",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-ttf2woff2": "^4.0.1",
+    "gulp-webp": "^4.0.1",
+    "gulp-webp-css-fixed": "^1.1.0",
+    "sass": "^1.52.3",
+    "stylelint": "^14.9.1",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.2.0",
+    "webpack": "^5.73.0",
+    "webpack-stream": "^7.0.0"
+  },
+  "dependencies": {
+    "swiper": "^8.2.4"
+  }
 }

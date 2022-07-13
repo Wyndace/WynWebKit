@@ -36,9 +36,10 @@ export default {
     },
 
     img: {
-        src: pathSrc + "/img/img/**/*.{png,jpeg,jpg,webp,svg,gif}",
-        watch: pathSrc + "/img/img/**/*.{png,jpeg,jpg,webp,svg,gif}",
-        dest: isProd ? pathBuildDest + '/img/' : pathDest + '/img/',
+        src: pathSrc + "/img/img/**/*.{png,jpeg,jpg,webp,svg,gif,avif}",
+        avif: pathSrc + "/img/img/**/*.{png,jpeg,jpg}",
+        watch: pathSrc + "/img/img/**/*.{png,jpeg,jpg,webp,svg,gif,avif}",
+        dest: isProd ? pathBuildDest + '/img/' : pathDest + '/img/'
     },
 
     fonts: {

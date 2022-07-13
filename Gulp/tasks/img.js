@@ -8,6 +8,7 @@ import notify from "gulp-notify";
 import imageMin from "gulp-imagemin";
 import newer from "gulp-newer";
 import webp from "gulp-webp";
+import avif from "gulp-avif";
 
 // =================================================================================================================================================================================================================================================================
 
@@ -22,7 +23,7 @@ import settings from "../config/settings.js"
 // ==== IMG processing =============================================================================================================================================================================================================================================
 
 const imgTask = () => {
-    return gulp.src(path.img.src)
+    return gulp.src(path.img.avif)
         .pipe(plumber({
             errorHandler: notify.onError(error => ({
                 title: "IMG TASK",
@@ -30,7 +31,11 @@ const imgTask = () => {
             }))
         }))
         .pipe(newer(path.img.dest))
-        .pipe(webp())
+        .pipe(avif(settings.avif))
+        .pipe(gulp.dest(path.img.dest))
+        .pipe(gulp.src(path.img.src))
+        .pipe(newer(path.img.dest))
+        .pipe(webp(settings.webp))
         .pipe(gulp.dest(path.img.dest))
         .pipe(gulp.src(path.img.src))
         .pipe(newer(path.img.dest))

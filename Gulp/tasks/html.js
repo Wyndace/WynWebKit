@@ -8,7 +8,7 @@ import htmlMin from "gulp-htmlmin";
 import size from "gulp-size"
 import plumber from "gulp-plumber";
 import notify from "gulp-notify";
-import webpHtml from "gulp-html-img-wrapper";
+import webpAvif from "gulp-webp-avif-html";
 import realFavicon from "gulp-real-favicon";
 
 import fs from "fs";
@@ -34,7 +34,7 @@ const htmlTask = () => {
             }))
         }))
         .pipe(fileInclude(settings.htmlFileInclude))
-        .pipe(webpHtml(settings.webpHtml))
+        .pipe(webpAvif())
         .pipe(realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(path.favicon.dataFile)).favicon.html_code))
         .pipe(size({
             title: '[HTML TASK] Before minify'

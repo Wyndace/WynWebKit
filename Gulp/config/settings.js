@@ -32,9 +32,12 @@ export default {
         verbose: true
     },
 
-    webpHtml: {
-        logger: true,
-        extensions: ['.jpg', '.png', '.jpeg'],
+    avif: {
+        quality: 30
+    },
+
+    webp: {
+        quality: 75
     },
 
     fonter: {

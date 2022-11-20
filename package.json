@@ -13,7 +13,10 @@
     "url": "git+https://github.com/Wyndace/WynWebKit.git"
   },
   "browserslist": [
-    "last 3 versions and not ie 11 and not dead"
+    ">0.3%",
+    "defaults",
+    "not dead",
+    "last 3 version"
   ],
   "babel": {
     "presets": [

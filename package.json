@@ -1,0 +1,59 @@
+{
+  "name": "WynWebKit",
+  "private": true,
+  "packageManager": "yarn@1.22.19",
+  "version": "3.0.0",
+  "keywords": [
+    "stylelifeweb",
+    "slw",
+    "wyndace",
+    "web",
+    "js",
+    "html",
+    "css",
+    "wynwebkit",
+    "weblayouts",
+    "nuxt",
+    "vuejs"
+  ],
+  "description": "WynWebKit - Wyndace's Web Development Kit | Starter Template from Web Devs for Web Devs.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wyndace/WynWebKit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wyndace/WynWebKit/issues"
+  },
+  "homepage": "https://github.com/Wyndace/WynWebKit#readme",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/image-edge": "^1.0.0-27840416.dc1ed65",
+    "@nuxtjs/tailwindcss": "^6.2.0",
+    "@tailwindcss/language-server": "^0.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "@volar/vue-language-server": "^1.0.24",
+    "emmet-ls": "^0.3.1",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "nuxt": "3.0.0",
+    "nuxt-purgecss": "^2.0.0",
+    "nuxt-seo-kit": "^0.4.10",
+    "nuxt-svgo": "^1.1.0",
+    "prettier": "^2.8.2",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-lsp": "^1.2.4",
+    "terser": "^5.16.1",
+    "typescript": "^4.9.4",
+    "typescript-language-server": "^3.0.1",
+    "vue-tsc": "^1.0.24"
+  },
+  "dependencies": {}
+}

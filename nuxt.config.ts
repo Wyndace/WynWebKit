@@ -11,6 +11,15 @@ export default defineNuxtConfig({
       siteDescription: "Site base on Nuxt.",
       language: "en-US",
       titleSeparator: "|",
+      trailingSlash: false,
+    },
+  },
+  postcss: {
+    preset: {
+      autoprefixer: {
+        grid: true,
+        flexbox: true,
+      },
     },
   },
 })

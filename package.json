@@ -64,5 +64,7 @@
     "vue-eslint-parser": "^9.1.0",
     "vue-tsc": "^1.0.24"
   },
-  "dependencies": {}
+  "dependencies": {
+    "flowbite": "^1.6.5"
+  }
 }
